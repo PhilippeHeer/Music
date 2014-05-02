@@ -10,13 +10,24 @@ public abstract class Strings {
 	/**
 	 * 
 	 */
-	public static String names[] = { "A", "B", "C", "D", "E", "F", "G", "H",
-			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" };
+	public static final String ADD_ROW = "Add row to table";
 
 	/**
 	 * 
 	 */
-	public static String toolTip[] = {
+	public static final String NAMES[] = { "A", "B", "C", "D", "E", "F",
+			"G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+			"T" };
+
+	/**
+	 * 
+	 */
+	public static final String ADD_ROW_TOOLTIP = "Add row to table";
+
+	/**
+	 * 
+	 */
+	public static String NAMES_TOOL_TIPS[] = {
 			"Print the names of artists from Switzerland.",
 			"Print the names of areas with the highest number male artists, female artists and groups, as well as the number of artists of each type in each of the three areas.",
 			"List the names of 10 groups with the most recorded tracks.",

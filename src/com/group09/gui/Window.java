@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
+import com.group09.database.Query;
 
 /**
  * 
@@ -22,85 +24,35 @@ import com.group09.database.Database;
  */
 @SuppressWarnings("serial")
 public class Window extends JFrame implements ActionListener {
-	private JButton jButton[] = new JButton[Strings.names.length];
-	private JButton jButton1 = new JButton("Add to table");
-	private JTable jTable;
-	private DefaultTableModel model;
-
 	private Database database;
+
+	private JPanel jPanel0;
+
+	private JButton jButton;
+	private JButton jButtons[];
+
+	private DefaultTableModel defaultTableModel;
 
 	/**
 	 * 
+	 * @param database
 	 */
 	public Window(Database database) {
 		this.database = database;
 
-		
-		
-		model = new DefaultTableModel();
-		model.addColumn("Id");
-		model.addColumn("Name");
-		model.addColumn("Count");
-		
-		
-		int j=0;
-		
+		initializeWindow();
+	}
 
-		ResultSet resultSet = database.query("SELECT * FROM GENRE");
-		try {
-			while (resultSet.next()) {
-				model.insertRow(0, new Object[]{resultSet.getInt("ID"), resultSet
-						.getString("Name"), resultSet.getInt("Count"), j++});
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	/**
+	 * 
+	 */
+	private void initializeWindow() {
+		jPanel0 = new JPanel(true);
 
-		
-		jTable = new JTable(model);
-		jTable.setEnabled(false);
-		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		model.insertRow(0, new Object[]{null,"a"});		
-		
-		
+		initializeButton();
+		initializeJTable();
+		initializeButtons();
 
-
-		
-		JPanel jPanel0 = new JPanel(true);
-		JPanel jPanel1 = new JPanel(true);
-		JPanel jPanel2 = new JPanel(true);
-		JPanel jPanel3 = new JPanel(true);
-
-		jButton1.addActionListener(this);
-		jButton1.setPreferredSize(new Dimension(1000, 30));
-		jPanel1.add(jButton1);
-
-		JScrollPane scrollPane = new JScrollPane(jTable,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setEnabled(true);
-		scrollPane.setPreferredSize(new Dimension(1000, 630));
-		jPanel2.add(scrollPane);
-
-		for (int i = 0; i < Strings.names.length; i++) {
-			jButton[i] = new JButton(Strings.names[i]);
-			jButton[i].addActionListener(this);
-			jButton[i].setToolTipText(Strings.toolTip[i]);
-
-			// TODO only for assignment 2
-			if (i >= 7) {
-				jButton[i].setEnabled(false);
-			}
-
-			jPanel3.add(jButton[i]);
-		}
-		jPanel3.setPreferredSize(new Dimension(1000, 40));
-		
-		
-		
-		jPanel0.add(jPanel1);
-		jPanel0.add(jPanel2);
-		jPanel0.add(jPanel3);
 		add(jPanel0);
 		pack();
 
@@ -115,29 +67,108 @@ public class Window extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		for (int i = 0; i < Strings.names.length; i++) {
-			if (e.getSource() == jButton[i]) {
-				System.out.println(jButton[i].getText());
-				model.getDataVector().removeAllElements();
-				model.fireTableDataChanged();
-				model.setColumnCount(0);
-				model.addColumn("Id");
-				break;
+	private void initializeButton() {
+		jButton = new JButton(Strings.ADD_ROW);
+		jButton.setToolTipText(Strings.ADD_ROW_TOOLTIP);
+		jButton.addActionListener(this);
+		jButton.setPreferredSize(new Dimension(1000, 30));
+
+		jPanel0.add(new JPanel(true).add(jButton));
+	}
+
+	/**
+	 * 
+	 */
+	private void initializeButtons() {
+		JPanel jPanel = new JPanel(true);
+
+		jButtons = new JButton[Strings.NAMES.length];
+		for (int i = 0; i < Strings.NAMES.length; i++) {
+			jButtons[i] = new JButton(Strings.NAMES[i]);
+			jButtons[i].setToolTipText(Strings.NAMES_TOOL_TIPS[i]);
+			jButtons[i].addActionListener(this);
+			jButtons[i].setPreferredSize(new Dimension(45, 30));
+
+			// TODO only for assignment 2
+			if (i >= 7) {
+				jButtons[i].setEnabled(false);
 			}
+
+			jPanel.add(jButtons[i]);
 		}
 
-		if (e.getSource() == jButton1) {
-			System.out.println(jButton1.getText());
-//
-//			String name = JOptionPane.showInputDialog(this,
-//					"To which table you want to add some information?", null);
-//			String name2 = JOptionPane.showInputDialog(this,
-//					"To which table you want to add some information?", null);
-			
-			jTable = new JTable(model);
-			model.insertRow(0, new Object[]{null,"a"});
+		jPanel0.add(jPanel);
+	}
+
+	/**
+	 * 
+	 */
+	private void initializeJTable() {
+		defaultTableModel = new DefaultTableModel();
+
+		JTable jTable = new JTable(defaultTableModel);
+		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		jTable.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(jTable,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setPreferredSize(new Dimension(1000, 630));
+
+		jPanel0.add(new JPanel().add(scrollPane));
+	}
+
+	/**
+	 * 
+	 * @param resultSet
+	 */
+	private void updateJTAble(ResultSet resultSet) {
+		defaultTableModel.getDataVector().removeAllElements();
+		defaultTableModel.fireTableDataChanged();
+		defaultTableModel.setColumnCount(0);
+
+		try {
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+
+			for (int i = 1; i < columnCount + 1; i++) {
+				defaultTableModel.addColumn(resultSetMetaData.getColumnName(i));
+			}
+
+			while (resultSet.next()) {
+				defaultTableModel.insertRow(
+						0,
+						new Object[] { resultSet.getInt("ID"),
+								resultSet.getString("Name"),
+								resultSet.getInt("Count") });
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == jButton) {
+			System.out.println(jButton.getText());
+
+			// String name2 = JOptionPane.showInputDialog(this,
+			// "To which table you want to add some information?", null);
+
+			defaultTableModel.insertRow(0, new Object[] { null, "a" });
+
+		} else {
+			for (int index = 0; index < Strings.NAMES.length; index++) {
+				if (e.getSource() == jButtons[index]) {
+					System.out.println(jButtons[index].getText());
+
+					updateJTAble(database.query(Query.QUERIES[index]));
+					break;
+				}
+			}
 		}
 	}
 }
