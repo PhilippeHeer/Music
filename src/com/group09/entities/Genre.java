@@ -7,19 +7,19 @@ package com.group09.entities;
  */
 public class Genre {
 	private int ID;
-	private int count;
 	private String name;
+	private int count;
 
 	/**
 	 * 
 	 * @param ID
-	 * @param count
 	 * @param name
+	 * @param count
 	 */
-	public Genre(int iD, int count, String name) {
+	public Genre(int iD, String name, int count) {
 		this.ID = iD;
-		this.count = count;
 		this.name = name;
+		this.count = count;
 	}
 
 	/**
@@ -42,22 +42,6 @@ public class Genre {
 	 * 
 	 * @return
 	 */
-	public int getCount() {
-		return count;
-	}
-
-	/**
-	 * 
-	 * @param count
-	 */
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
 	public String getName() {
 		return name;
 	}
@@ -68,5 +52,21 @@ public class Genre {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getCount() {
+		return count;
+	}
+
+	/**
+	 * 
+	 * @param count
+	 */
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

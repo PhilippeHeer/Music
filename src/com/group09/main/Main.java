@@ -2,6 +2,7 @@ package com.group09.main;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.group09.database.Database;
 import com.group09.entities.Gender;
@@ -24,7 +25,7 @@ public class Main {
 		Database database = new Database("Database.db");
 		database.connect();
 
-		new Window();
+		new Window(database);
 		
 //		database.createTables();
 //		
@@ -34,16 +35,7 @@ public class Main {
 //		database.addGender(gender);
         
 
-//		int i = 0;
-//		
-//		ResultSet resultSet = database.query("SELECT * FROM GENRE");
-//		try {
-//			while (resultSet.next()) {
-//				System.out.println(++i + "Name : " + resultSet.getString("Name"));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		
 
 		
 		database.close();
