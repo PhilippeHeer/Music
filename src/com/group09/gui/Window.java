@@ -1,7 +1,6 @@
 package com.group09.gui;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -26,8 +25,9 @@ public class Window extends JFrame implements ActionListener {
 	private JButton jButton[] = new JButton[Strings.names.length];
 	private JButton jButton1 = new JButton("Add to table");
 	private JTable jTable;
-	private Database database;
 	private DefaultTableModel model;
+
+	private Database database;
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class Window extends JFrame implements ActionListener {
 		model.addColumn("Id");
 		model.addColumn("Name");
 		model.addColumn("Count");
-		model.addColumn("Index");
+		
 		
 		int j=0;
 		
@@ -58,24 +58,28 @@ public class Window extends JFrame implements ActionListener {
 
 		
 		jTable = new JTable(model);
+		jTable.setEnabled(false);
+		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		model.insertRow(0, new Object[]{null,"a"});		
 		
 		
 
-		setLayout(new FlowLayout());
 
-		JPanel jPanel1 = new JPanel();
-		JPanel jPanel2 = new JPanel();
-		JPanel jPanel3 = new JPanel();
+		
+		JPanel jPanel0 = new JPanel(true);
+		JPanel jPanel1 = new JPanel(true);
+		JPanel jPanel2 = new JPanel(true);
+		JPanel jPanel3 = new JPanel(true);
 
 		jButton1.addActionListener(this);
-		jButton1.setPreferredSize(new Dimension(950, 30));
+		jButton1.setPreferredSize(new Dimension(1000, 30));
 		jPanel1.add(jButton1);
 
 		JScrollPane scrollPane = new JScrollPane(jTable,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setPreferredSize(new Dimension(950, 600));
+		scrollPane.setEnabled(true);
+		scrollPane.setPreferredSize(new Dimension(1000, 630));
 		jPanel2.add(scrollPane);
 
 		for (int i = 0; i < Strings.names.length; i++) {
@@ -90,22 +94,21 @@ public class Window extends JFrame implements ActionListener {
 
 			jPanel3.add(jButton[i]);
 		}
-		jPanel3.setPreferredSize(new Dimension(950, 50));
+		jPanel3.setPreferredSize(new Dimension(1000, 40));
 		
 		
 		
-		
-
-		add(jPanel1);
-		add(jPanel2);
-		add(jPanel3);
+		jPanel0.add(jPanel1);
+		jPanel0.add(jPanel2);
+		jPanel0.add(jPanel3);
+		add(jPanel0);
 		pack();
 
 		setTitle("Assignment 2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024, 768);
-		setResizable(false);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setVisible(true);
 	}
 
