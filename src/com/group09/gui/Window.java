@@ -6,18 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
-import com.group09.entities.Genre;
 
 /**
  * 
@@ -30,6 +27,7 @@ public class Window extends JFrame implements ActionListener {
 	private JButton jButton1 = new JButton("Add to table");
 	private JTable jTable;
 	private Database database;
+	private DefaultTableModel model;
 
 	/**
 	 * 
@@ -39,7 +37,7 @@ public class Window extends JFrame implements ActionListener {
 
 		
 		
-		DefaultTableModel model = new DefaultTableModel();
+		model = new DefaultTableModel();
 		model.addColumn("Id");
 		model.addColumn("Name");
 		model.addColumn("Count");
@@ -47,7 +45,6 @@ public class Window extends JFrame implements ActionListener {
 		
 		int j=0;
 		
-		ArrayList data = new ArrayList<Genre>();
 
 		ResultSet resultSet = database.query("SELECT * FROM GENRE");
 		try {
@@ -61,7 +58,7 @@ public class Window extends JFrame implements ActionListener {
 
 		
 		jTable = new JTable(model);
-		
+		model.insertRow(0, new Object[]{null,"a"});		
 		
 		
 
@@ -78,6 +75,7 @@ public class Window extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(jTable,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setPreferredSize(new Dimension(950, 600));
 		jPanel2.add(scrollPane);
 
 		for (int i = 0; i < Strings.names.length; i++) {
@@ -92,6 +90,11 @@ public class Window extends JFrame implements ActionListener {
 
 			jPanel3.add(jButton[i]);
 		}
+		jPanel3.setPreferredSize(new Dimension(950, 50));
+		
+		
+		
+		
 
 		add(jPanel1);
 		add(jPanel2);
@@ -114,17 +117,24 @@ public class Window extends JFrame implements ActionListener {
 		for (int i = 0; i < Strings.names.length; i++) {
 			if (e.getSource() == jButton[i]) {
 				System.out.println(jButton[i].getText());
+				model.getDataVector().removeAllElements();
+				model.fireTableDataChanged();
+				model.setColumnCount(0);
+				model.addColumn("Id");
 				break;
 			}
 		}
 
 		if (e.getSource() == jButton1) {
 			System.out.println(jButton1.getText());
-
-			String name = JOptionPane.showInputDialog(this,
-					"To which table you want to add some information?", null);
-			String name2 = JOptionPane.showInputDialog(this,
-					"To which table you want to add some information?", null);
+//
+//			String name = JOptionPane.showInputDialog(this,
+//					"To which table you want to add some information?", null);
+//			String name2 = JOptionPane.showInputDialog(this,
+//					"To which table you want to add some information?", null);
+			
+			jTable = new JTable(model);
+			model.insertRow(0, new Object[]{null,"a"});
 		}
 	}
 }

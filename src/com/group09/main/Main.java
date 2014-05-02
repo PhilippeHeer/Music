@@ -1,13 +1,6 @@
 package com.group09.main;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import com.group09.database.Database;
-import com.group09.entities.Gender;
-import com.group09.entities.Genre;
-import com.group09.entities.Male;
 import com.group09.gui.Window;
 
 /**
