@@ -21,26 +21,29 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Window();
 		Database database = new Database("Database.db");
 		database.connect();
+
+		new Window();
 		
 //		database.createTables();
-		
+//		
 //		Genre genre = new Genre(46, 23, "Rock");
 //		Gender gender = new Male(45, "genderName???");
 //		database.addGenre(genre);
 //		database.addGender(gender);
         
 
-		ResultSet resultSet = database.query("SELECT * FROM GENRE");
-		try {
-			while (resultSet.next()) {
-				System.out.println("Name : " + resultSet.getString("ID"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		int i = 0;
+//		
+//		ResultSet resultSet = database.query("SELECT * FROM GENRE");
+//		try {
+//			while (resultSet.next()) {
+//				System.out.println(++i + "Name : " + resultSet.getString("Name"));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 
 		
 		database.close();
