@@ -111,6 +111,34 @@ public class Database {
 
 	/**
 	 * 
+	 * @param data
+	 * @param index
+	 */
+	public void addRow(String[] data, int index) {
+		String string = "INSERT INTO " + Query.TABLE_NAMES[index] + " VALUES(?";
+
+		for (int i = 1; i < data.length; i++) {
+			string += ",?";
+		}
+
+		string += ")";
+
+		try {
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(string);
+
+			for (int i = 0; i < data.length; i++) {
+				preparedStatement.setString(i + 1, data[i]);
+			}
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
 	 */
 	public void createTables() {
 		try {

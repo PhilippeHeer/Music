@@ -10,6 +10,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,7 +37,9 @@ public class Window extends JFrame implements ActionListener {
 	private JButton jButton1;
 	private JButton jButton2;
 	private JButton jButtons[];
-	
+
+	private JComboBox<String> jComboBox;
+
 	private DefaultTableModel defaultTableModel;
 
 	/**
@@ -97,14 +100,19 @@ public class Window extends JFrame implements ActionListener {
 		jButton1 = new JButton(Strings.SEARCH_TABLE);
 		jButton1.setToolTipText(Strings.SEARCH_TABLE_TOOL_TIP);
 		jButton1.addActionListener(this);
-		jButton1.setPreferredSize(new Dimension(500, 30));
+		jButton1.setPreferredSize(new Dimension(330, 30));
 		jPanel.add(jButton1);
 
-		jButton2 = new JButton(Strings.ADD_ROW);
+		jButton2 = new JButton(Strings.ADD_ROW + " " + Query.TABLE_NAMES[0]);
 		jButton2.setToolTipText(Strings.ADD_ROW_TOOLTIP);
 		jButton2.addActionListener(this);
-		jButton2.setPreferredSize(new Dimension(500, 30));
+		jButton2.setPreferredSize(new Dimension(330, 30));
 		jPanel.add(jButton2);
+
+		jComboBox = new JComboBox<String>(Query.TABLE_NAMES);
+		jComboBox.addActionListener(this);
+		jComboBox.setPreferredSize(new Dimension(330, 30));
+		jPanel.add(jComboBox);
 
 		jPanel0.add(jPanel);
 	}
@@ -140,7 +148,7 @@ public class Window extends JFrame implements ActionListener {
 		defaultTableModel = new DefaultTableModel();
 
 		JTable jTable = new JTable(defaultTableModel);
-		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		jTable.setEnabled(false);
 
 		JScrollPane scrollPane = new JScrollPane(jTable,
@@ -199,8 +207,11 @@ public class Window extends JFrame implements ActionListener {
 							null);
 			updateJTable(database.query(name2));
 
+		} else if (e.getSource() == jComboBox) {
+			jButton2.setText(Strings.ADD_ROW + " "
+					+ Query.TABLE_NAMES[jComboBox.getSelectedIndex()]);
 		} else if (e.getSource() == jButton2) {
-			new TableSelect(database);
+			new TableSelect(database, jComboBox.getSelectedIndex());
 
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
