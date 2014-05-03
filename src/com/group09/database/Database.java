@@ -114,10 +114,10 @@ public class Database {
 	 */
 	public void createTables() {
 		try {
-			statement.executeUpdate(Query.TABLES[0]);
-			statement.executeUpdate(Query.TABLES[1]);
+			for (int i = 0; i < Query.TABLES.length; i++) {
+				statement.executeUpdate(Query.TABLES[i]);
+			}
 		} catch (SQLException e) {
-			// mostly because the tables already exist
 			e.printStackTrace();
 		}
 	}

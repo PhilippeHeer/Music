@@ -20,7 +20,7 @@ public abstract class Query {
 	 */
 	public static final String[] QUERIES = {
 		"SELECT * FROM GENRE",
-		"",
+		"SELECT * FROM GENDER",
 		"",
 		"",
 		"",

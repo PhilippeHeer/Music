@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
 import com.group09.database.Query;
+import com.group09.entities.Genre;
+import com.group09.entities.Male;
 
 /**
  * 
@@ -30,7 +33,8 @@ public class Window extends JFrame implements ActionListener {
 
 	private JPanel jPanel0;
 
-	private JButton jButton;
+	private JButton jButton1;
+	private JButton jButton2;
 	private JButton jButtons[];
 
 	private DefaultTableModel defaultTableModel;
@@ -77,12 +81,21 @@ public class Window extends JFrame implements ActionListener {
 	 * 
 	 */
 	private void initializeButton() {
-		jButton = new JButton(Strings.ADD_ROW);
-		jButton.setToolTipText(Strings.ADD_ROW_TOOLTIP);
-		jButton.addActionListener(this);
-		jButton.setPreferredSize(new Dimension(1000, 30));
+		JPanel jPanel = new JPanel(true);
 
-		jPanel0.add(new JPanel(true).add(jButton));
+		jButton1 = new JButton(Strings.SEARCH_TABLE);
+		jButton1.setToolTipText(Strings.SEARCH_TABLE_TOOL_TIP);
+		jButton1.addActionListener(this);
+		jButton1.setPreferredSize(new Dimension(500, 30));
+		jPanel.add(jButton1);
+
+		jButton2 = new JButton(Strings.ADD_ROW);
+		jButton2.setToolTipText(Strings.ADD_ROW_TOOLTIP);
+		jButton2.addActionListener(this);
+		jButton2.setPreferredSize(new Dimension(500, 30));
+		jPanel.add(jButton2);
+
+		jPanel0.add(jPanel);
 	}
 
 	/**
@@ -166,14 +179,18 @@ public class Window extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == jButton) {
-			System.out.println(jButton.getText());
+		if (e.getSource() == jButton1) {
+			System.out.println(jButton1.getText());
 
-			// String name2 = JOptionPane.showInputDialog(this,
-			// "To which table you want to add some information?", null);
+			String name2 = JOptionPane.showInputDialog(this,
+					"Please enter your search query\n(\"SELECT * FROM GENRE\")", null);
+			updateJTable(database.query(name2));
 
-			defaultTableModel.insertRow(0, new Object[] { null, "a" });
+		} else if (e.getSource() == jButton2) {
+			System.out.println(jButton2.getText());
 
+			database.addGenre(new Genre(6, "Rock", 6));
+			database.addGender(new Male(7, "Fritz"));
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
 				if (e.getSource() == jButtons[index]) {

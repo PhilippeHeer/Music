@@ -15,14 +15,23 @@ public abstract class Strings {
 	/**
 	 * 
 	 */
-	public static final String NAMES[] = { "A", "B", "C", "D", "E", "F",
-			"G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
-			"T" };
+	public static final String ADD_ROW_TOOLTIP = "Add row to table";
 
 	/**
 	 * 
 	 */
-	public static final String ADD_ROW_TOOLTIP = "Add row to table";
+	public static final String SEARCH_TABLE = "Search table";
+
+	/**
+	 * 
+	 */
+	public static final String SEARCH_TABLE_TOOL_TIP = "Serach table";
+
+	/**
+	 * 
+	 */
+	public static final String NAMES[] = { "A", "B", "C", "D", "E", "F", "G",
+			"H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" };
 
 	/**
 	 * 
