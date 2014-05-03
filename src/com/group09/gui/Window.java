@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
 import com.group09.database.Query;
-import com.group09.entities.Genre;
-import com.group09.entities.Male;
 
 /**
  * 
@@ -36,7 +36,7 @@ public class Window extends JFrame implements ActionListener {
 	private JButton jButton1;
 	private JButton jButton2;
 	private JButton jButtons[];
-
+	
 	private DefaultTableModel defaultTableModel;
 
 	/**
@@ -53,6 +53,18 @@ public class Window extends JFrame implements ActionListener {
 	 * 
 	 */
 	private void initializeWindow() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+
 		jPanel0 = new JPanel(true);
 
 		initializeButton();
@@ -64,7 +76,6 @@ public class Window extends JFrame implements ActionListener {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				System.out.println("Goodbye");
 				database.close();
 			}
 		});
@@ -137,7 +148,7 @@ public class Window extends JFrame implements ActionListener {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setPreferredSize(new Dimension(1000, 630));
 
-		jPanel0.add(new JPanel().add(scrollPane));
+		jPanel0.add(scrollPane);
 	}
 
 	/**
@@ -180,22 +191,20 @@ public class Window extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jButton1) {
-			System.out.println(jButton1.getText());
 
-			String name2 = JOptionPane.showInputDialog(this,
-					"Please enter your search query\n(\"SELECT * FROM GENRE\")", null);
+			String name2 = JOptionPane
+					.showInputDialog(
+							this,
+							"Please enter your search query\n(\"SELECT * FROM GENRE\")",
+							null);
 			updateJTable(database.query(name2));
 
 		} else if (e.getSource() == jButton2) {
-			System.out.println(jButton2.getText());
+			new TableSelect(database);
 
-			database.addGenre(new Genre(6, "Rock", 6));
-			database.addGender(new Male(7, "Fritz"));
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
 				if (e.getSource() == jButtons[index]) {
-					System.out.println(jButtons[index].getText());
-
 					updateJTable(database.query(Query.QUERIES[index]));
 					break;
 				}
