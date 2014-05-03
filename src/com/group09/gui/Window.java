@@ -3,6 +3,8 @@ package com.group09.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -55,6 +57,13 @@ public class Window extends JFrame implements ActionListener {
 
 		add(jPanel0);
 		pack();
+
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.out.println("Goodbye");
+				database.close();
+			}
+		});
 
 		setTitle("Assignment 2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,7 +131,7 @@ public class Window extends JFrame implements ActionListener {
 	 * 
 	 * @param resultSet
 	 */
-	private void updateJTAble(ResultSet resultSet) {
+	private void updateJTable(ResultSet resultSet) {
 		defaultTableModel.getDataVector().removeAllElements();
 		defaultTableModel.fireTableDataChanged();
 		defaultTableModel.setColumnCount(0);
@@ -131,16 +140,21 @@ public class Window extends JFrame implements ActionListener {
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 			int columnCount = resultSetMetaData.getColumnCount();
 
-			for (int i = 1; i < columnCount + 1; i++) {
-				defaultTableModel.addColumn(resultSetMetaData.getColumnName(i));
+			String columnNames[] = new String[columnCount];
+
+			for (int i = 0; i < columnCount; i++) {
+				columnNames[i] = resultSetMetaData.getColumnName(i + 1);
+				defaultTableModel.addColumn(columnNames[i]);
 			}
 
 			while (resultSet.next()) {
-				defaultTableModel.insertRow(
-						0,
-						new Object[] { resultSet.getInt("ID"),
-								resultSet.getString("Name"),
-								resultSet.getInt("Count") });
+				String data[] = new String[columnCount];
+
+				for (int i = 0; i < columnCount; i++) {
+					data[i] = resultSet.getString(columnNames[i]);
+				}
+
+				defaultTableModel.addRow(data);
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -165,7 +179,7 @@ public class Window extends JFrame implements ActionListener {
 				if (e.getSource() == jButtons[index]) {
 					System.out.println(jButtons[index].getText());
 
-					updateJTAble(database.query(Query.QUERIES[index]));
+					updateJTable(database.query(Query.QUERIES[index]));
 					break;
 				}
 			}

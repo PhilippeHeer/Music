@@ -113,16 +113,9 @@ public class Database {
 	 * 
 	 */
 	public void createTables() {
-		String sql1 = "CREATE TABLE GENRE "
-				+ "(ID INT PRIMARY KEY     NOT NULL,"
-				+ " COUNT            INT     NOT NULL, "
-				+ " NAME       CHAR(50)) ";
-		String sql2 = "CREATE TABLE GENDER "
-				+ "(ID INT PRIMARY KEY     NOT NULL,"
-				+ " NAME       CHAR(50)) ";
 		try {
-			statement.executeUpdate(sql1);
-			statement.executeUpdate(sql2);
+			statement.executeUpdate(Query.TABLES[0]);
+			statement.executeUpdate(Query.TABLES[1]);
 		} catch (SQLException e) {
 			// mostly because the tables already exist
 			e.printStackTrace();
