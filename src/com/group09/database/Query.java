@@ -12,7 +12,7 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] TABLES = {
-		"CREATE TABLE GENRE (ID INT PRIMARY KEY NOT NULL, NAME CHAR(50), COUNT INT NOT NULL)",
+		"CREATE TABLE Genre (Genre_id INTEGER, Name CHAR (50), Count INTEGER, PRIMARY KEY (Genre_id)) ",
 		"CREATE TABLE GENDER (ID INT PRIMARY KEY NOT NULL, NAME CHAR(50))",
 	};
 

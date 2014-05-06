@@ -63,8 +63,8 @@ public class TableSelect extends JFrame implements ActionListener {
 	 * 
 	 */
 	private void initializeJButton() {
-		jButton = new JButton(Strings.SEARCH_TABLE);
-		jButton.setToolTipText(Strings.SEARCH_TABLE_TOOL_TIP);
+		jButton = new JButton(Strings.ADD_ROW);
+		jButton.setToolTipText(Strings.ADD_ROW_TOOLTIP);
 		jButton.addActionListener(this);
 		jButton.setPreferredSize(new Dimension(460, 30));
 
