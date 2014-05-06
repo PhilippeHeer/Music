@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
 import com.group09.database.Query;
+import com.group09.entities.Genre;
 
 /**
  * 
@@ -211,7 +212,18 @@ public class Window extends JFrame implements ActionListener {
 			jButton2.setText(Strings.ADD_ROW + " "
 					+ Query.TABLE_NAMES[jComboBox.getSelectedIndex()]);
 		} else if (e.getSource() == jButton2) {
-			new TableSelect(database, jComboBox.getSelectedIndex());
+			Object object = null;
+			
+			switch (jComboBox.getSelectedIndex()) {
+			case 2:
+				object = new Genre(-1, "", -1);
+				break;
+
+			default:
+				break;
+			}
+			
+			new TableSelect(database, object);
 
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {

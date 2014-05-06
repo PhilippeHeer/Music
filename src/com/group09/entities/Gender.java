@@ -5,7 +5,7 @@ package com.group09.entities;
  * @author Group 09
  * 
  */
-public abstract class Gender {
+public class Gender {
 	private int ID;
 	private String name;
 

@@ -58,8 +58,4 @@ public abstract class Query {
 		"Release",
 		"is_track_on"
 	};
-	
-	public static final int TABLE_SIZES[] = {
-		0,2,3,0,0,0,0,0,0,0
-	};
 }

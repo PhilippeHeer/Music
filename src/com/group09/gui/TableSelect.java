@@ -3,8 +3,7 @@ package com.group09.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,31 +13,29 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
-import com.group09.database.Query;
 
 /**
  * 
- * @author Philippe Heer
+ * @author Group 09
  * 
  */
 @SuppressWarnings("serial")
 public class TableSelect extends JFrame implements ActionListener {
 
 	private Database database;
+	private Object object;
 	private JPanel jPanel0;
-	private int index;
 	private DefaultTableModel defaultTableModel;
 	private JButton jButton;
-	private int columnCount;
 
 	/**
 	 * @param database
-	 * @param index
+	 * @param object
 	 * 
 	 */
-	public TableSelect(Database database, int index) {
+	public TableSelect(Database database, Object object) {
 		this.database = database;
-		this.index = index;
+		this.object = object;
 
 		initializeWindow();
 	}
@@ -89,19 +86,22 @@ public class TableSelect extends JFrame implements ActionListener {
 		scrollPane.setPreferredSize(new Dimension(460, 60));
 
 		try {
-			ResultSetMetaData resultSetMetaData = database.query(
-					"SELECT * FROM " + Query.TABLE_NAMES[index]).getMetaData();
-			columnCount = resultSetMetaData.getColumnCount();
-
-			for (int i = 0; i < columnCount; i++) {
-				defaultTableModel.addColumn(resultSetMetaData
-						.getColumnName(i + 1));
+			for (Field field : object.getClass().getDeclaredFields()) {
+				field.setAccessible(true);
+				Object value;
+				value = field.get(object);
+				if (value != null) {
+					defaultTableModel.addColumn(field.getName());
+				}
 			}
-
-			defaultTableModel.addRow(new String[columnCount]);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
+
+		Object row[] = {};
+		defaultTableModel.addRow(row);
 
 		jPanel0.add(scrollPane);
 	}
@@ -112,13 +112,29 @@ public class TableSelect extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jButton) {
-			String data[] = new String[columnCount];
 
-			for (int i = 0; i < columnCount; i++) {
-				data[i] = (String) defaultTableModel.getValueAt(0, i);
+			try {
+				Field field[] = object.getClass().getDeclaredFields();
+
+				for (int i = 0; i < field.length; i++) {
+					field[i].setAccessible(true);
+
+					if (field[i].getType().getSimpleName().equals("String")) {
+						field[i].set(object,
+								defaultTableModel.getValueAt(0, i));
+					} else if (field[i].getType().getSimpleName().equals("int")) {
+						field[i].setInt(object, Integer
+								.parseInt((String) defaultTableModel
+										.getValueAt(0, i)));
+					}
+				}
+			} catch (IllegalArgumentException e1) {
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				e1.printStackTrace();
 			}
 
-			database.addRow(data, index);
+			database.addRow(object);
 		}
 
 		setVisible(false);

@@ -1,14 +1,12 @@
 package com.group09.database;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.group09.entities.Gender;
-import com.group09.entities.Genre;
 
 /**
  * 
@@ -78,61 +76,41 @@ public class Database {
 
 	/**
 	 * 
-	 * @param genre
+	 * @param object
 	 */
-	public void addGenre(Genre genre) {
+	public void addRow(Object object) {
 		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("INSERT INTO GENRE VALUES(?,?,?)");
-			preparedStatement.setInt(1, genre.getID());
-			preparedStatement.setInt(2, genre.getCount());
-			preparedStatement.setString(3, genre.getName());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+			String string = "INSERT INTO " + object.getClass().getSimpleName()
+					+ " Values(?";
 
-	/**
-	 * 
-	 * @param gender
-	 */
-	public void addGender(Gender gender) {
-		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("INSERT INTO GENDER VALUES(?,?)");
-			preparedStatement.setInt(1, gender.getID());
-			preparedStatement.setString(2, gender.getName());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+			for (int i = 1; i < object.getClass().getDeclaredFields().length; i++) {
+				string += ",?";
+			}
 
-	/**
-	 * 
-	 * @param data
-	 * @param index
-	 */
-	public void addRow(String[] data, int index) {
-		String string = "INSERT INTO " + Query.TABLE_NAMES[index] + " VALUES(?";
+			string += ")";
 
-		for (int i = 1; i < data.length; i++) {
-			string += ",?";
-		}
-
-		string += ")";
-
-		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(string);
 
-			for (int i = 0; i < data.length; i++) {
-				preparedStatement.setString(i + 1, data[i]);
+			Field field[] = object.getClass().getDeclaredFields();
+			for (int i = 0; i < field.length; i++) {
+				field[i].setAccessible(true);
+				Object value = field[i].get(object);
+				if (value != null) {
+					if (field[i].getType().getSimpleName().equals("String")) {
+						preparedStatement.setString(i + 1, (String) value);
+					} else if (field[i].getType().getSimpleName().equals("int")) {
+						preparedStatement.setInt(i + 1, (int) value);
+					}
+				}
 			}
 
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
