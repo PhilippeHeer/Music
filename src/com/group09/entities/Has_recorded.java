@@ -21,7 +21,7 @@ public class Has_recorded {
 
 	/**
 	 * 
-	 * @return
+	 * @return artist_id
 	 */
 	public int getArtist_id() {
 		return artist_id;
@@ -37,7 +37,7 @@ public class Has_recorded {
 
 	/**
 	 * 
-	 * @return
+	 * @return recording_id
 	 */
 	public int getRecording_id() {
 		return recording_id;

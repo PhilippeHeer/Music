@@ -3,7 +3,7 @@ package com.group09.entities;
 /**
  * 
  * @author Group 09
- *
+ * 
  */
 public class Recording {
 	private int recording_id;
@@ -24,7 +24,7 @@ public class Recording {
 
 	/**
 	 * 
-	 * @return
+	 * @return recording_id
 	 */
 	public int getRecording_id() {
 		return recording_id;
@@ -40,7 +40,7 @@ public class Recording {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;
@@ -56,7 +56,7 @@ public class Recording {
 
 	/**
 	 * 
-	 * @return
+	 * @return length
 	 */
 	public int getLength() {
 		return length;

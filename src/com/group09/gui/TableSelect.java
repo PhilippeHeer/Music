@@ -21,7 +21,6 @@ import com.group09.database.Database;
  */
 @SuppressWarnings("serial")
 public class TableSelect extends JFrame implements ActionListener {
-
 	private Database database;
 	private Object object;
 	private JPanel jPanel0;

@@ -3,7 +3,7 @@ package com.group09.entities;
 /**
  * 
  * @author Group 09
- *
+ * 
  */
 public class Type {
 	private int type_id;
@@ -21,7 +21,7 @@ public class Type {
 
 	/**
 	 * 
-	 * @return
+	 * @return type_id
 	 */
 	public int getType_id() {
 		return type_id;
@@ -37,7 +37,7 @@ public class Type {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;

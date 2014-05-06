@@ -21,7 +21,7 @@ public class Is_released {
 
 	/**
 	 * 
-	 * @return
+	 * @return medium_id
 	 */
 	public int getMedium_id() {
 		return medium_id;
@@ -37,7 +37,7 @@ public class Is_released {
 
 	/**
 	 * 
-	 * @return
+	 * @return release_id
 	 */
 	public int getRelease_id() {
 		return release_id;

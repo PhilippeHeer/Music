@@ -24,7 +24,7 @@ public class Is_track_on {
 
 	/**
 	 * 
-	 * @return
+	 * @return recording_id
 	 */
 	public int getRecording_id() {
 		return recording_id;
@@ -40,7 +40,7 @@ public class Is_track_on {
 
 	/**
 	 * 
-	 * @return
+	 * @return medium_id
 	 */
 	public int getMedium_id() {
 		return medium_id;
@@ -56,7 +56,7 @@ public class Is_track_on {
 
 	/**
 	 * 
-	 * @return
+	 * @return position
 	 */
 	public int getPosition() {
 		return position;

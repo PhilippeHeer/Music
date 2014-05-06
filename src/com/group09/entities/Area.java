@@ -3,7 +3,7 @@ package com.group09.entities;
 /**
  * 
  * @author Group 09
- *
+ * 
  */
 public class Area {
 	private int area_id;
@@ -24,7 +24,7 @@ public class Area {
 
 	/**
 	 * 
-	 * @return
+	 * @return area_id
 	 */
 	public int getArea_id() {
 		return area_id;
@@ -40,7 +40,7 @@ public class Area {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;
@@ -56,7 +56,7 @@ public class Area {
 
 	/**
 	 * 
-	 * @return
+	 * @return type_of_area
 	 */
 	public String getType_of_area() {
 		return type_of_area;

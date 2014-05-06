@@ -22,7 +22,7 @@ public class Is_Genre {
 
 	/**
 	 * 
-	 * @return
+	 * @return artist_id
 	 */
 	public int getArtist_id() {
 		return artist_id;
@@ -38,7 +38,7 @@ public class Is_Genre {
 
 	/**
 	 * 
-	 * @return
+	 * @return genre_id
 	 */
 	public int getGenre_id() {
 		return genre_id;

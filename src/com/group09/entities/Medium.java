@@ -21,7 +21,7 @@ public class Medium {
 
 	/**
 	 * 
-	 * @return
+	 * @return medium_id
 	 */
 	public int getMedium_id() {
 		return medium_id;
@@ -37,7 +37,7 @@ public class Medium {
 
 	/**
 	 * 
-	 * @return
+	 * @return format
 	 */
 	public String getFormat() {
 		return format;

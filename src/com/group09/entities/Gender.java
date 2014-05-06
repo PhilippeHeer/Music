@@ -11,7 +11,7 @@ public class Gender {
 
 	/**
 	 * 
-	 * @return
+	 * @return gender_id
 	 */
 	public int getID() {
 		return gender_id;
@@ -37,7 +37,7 @@ public class Gender {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;

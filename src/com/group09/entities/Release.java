@@ -21,7 +21,7 @@ public class Release {
 
 	/**
 	 * 
-	 * @return
+	 * @return release_id
 	 */
 	public int getRelease_id() {
 		return release_id;
@@ -37,7 +37,7 @@ public class Release {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;

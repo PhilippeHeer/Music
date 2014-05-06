@@ -24,7 +24,7 @@ public class Genre {
 
 	/**
 	 * 
-	 * @return
+	 * @return genre_id
 	 */
 	public int getID() {
 		return genre_id;
@@ -40,7 +40,7 @@ public class Genre {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;
@@ -56,7 +56,7 @@ public class Genre {
 
 	/**
 	 * 
-	 * @return
+	 * @return count
 	 */
 	public int getCount() {
 		return count;

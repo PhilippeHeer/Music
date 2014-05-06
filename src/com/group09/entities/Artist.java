@@ -31,7 +31,7 @@ public class Artist {
 
 	/**
 	 * 
-	 * @return
+	 * @return artist_id
 	 */
 	public int getArtist_id() {
 		return artist_id;
@@ -47,7 +47,7 @@ public class Artist {
 
 	/**
 	 * 
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;
@@ -63,7 +63,7 @@ public class Artist {
 
 	/**
 	 * 
-	 * @return
+	 * @return type_id
 	 */
 	public int getType_id() {
 		return type_id;
@@ -79,7 +79,7 @@ public class Artist {
 
 	/**
 	 * 
-	 * @return
+	 * @return gender_id
 	 */
 	public int getGender_id() {
 		return gender_id;
@@ -95,7 +95,7 @@ public class Artist {
 
 	/**
 	 * 
-	 * @return
+	 * @return area_id
 	 */
 	public int getArea_id() {
 		return area_id;
