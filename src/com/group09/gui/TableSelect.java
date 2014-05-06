@@ -78,7 +78,6 @@ public class TableSelect extends JFrame implements ActionListener {
 		defaultTableModel = new DefaultTableModel();
 
 		JTable jTable = new JTable(defaultTableModel);
-		// jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		JScrollPane scrollPane = new JScrollPane(jTable,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,

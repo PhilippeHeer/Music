@@ -6,15 +6,15 @@ package com.group09.entities;
  * 
  */
 public class Gender {
-	private int Gender_id;
-	private String Name;
+	private int gender_id;
+	private String name;
 
 	/**
 	 * 
 	 * @return
 	 */
 	public int getID() {
-		return Gender_id;
+		return gender_id;
 	}
 
 	/**
@@ -23,8 +23,8 @@ public class Gender {
 	 * @param name
 	 */
 	public Gender(int iD, String name) {
-		this.Gender_id = iD;
-		this.Name = name;
+		this.gender_id = iD;
+		this.name = name;
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class Gender {
 	 * @param iD
 	 */
 	public void setID(int iD) {
-		Gender_id = iD;
+		gender_id = iD;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class Gender {
 	 * @return
 	 */
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	/**
@@ -48,6 +48,6 @@ public class Gender {
 	 * @param name
 	 */
 	public void setName(String name) {
-		this.Name = name;
+		this.name = name;
 	}
 }

@@ -22,7 +22,17 @@ import javax.swing.table.DefaultTableModel;
 
 import com.group09.database.Database;
 import com.group09.database.Query;
+import com.group09.entities.Area;
+import com.group09.entities.Artist;
+import com.group09.entities.Gender;
 import com.group09.entities.Genre;
+import com.group09.entities.Has_recorded;
+import com.group09.entities.Is_Genre;
+import com.group09.entities.Is_released;
+import com.group09.entities.Is_track_on;
+import com.group09.entities.Medium;
+import com.group09.entities.Recording;
+import com.group09.entities.Release;
 
 /**
  * 
@@ -149,7 +159,6 @@ public class Window extends JFrame implements ActionListener {
 		defaultTableModel = new DefaultTableModel();
 
 		JTable jTable = new JTable(defaultTableModel);
-//		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		jTable.setEnabled(false);
 
 		JScrollPane scrollPane = new JScrollPane(jTable,
@@ -213,16 +222,52 @@ public class Window extends JFrame implements ActionListener {
 					+ Query.TABLE_NAMES[jComboBox.getSelectedIndex()]);
 		} else if (e.getSource() == jButton2) {
 			Object object = null;
-			
+
 			switch (jComboBox.getSelectedIndex()) {
+			case 0:
+				object = new com.group09.entities.Type(-1, "");
+				break;
+			case 1:
+				object = new Gender(-1, "");
+				break;
 			case 2:
 				object = new Genre(-1, "", -1);
+				break;
+			case 3:
+				object = new Area(-1, "", "");
+				break;
+			case 4:
+				object = new Artist(-1, "", -1, -1, -1);
+				break;
+			case 5:
+				object = new Is_Genre(-1, -1);
+				break;
+			case 6:
+				object = new Recording(-1, "", -1);
+				break;
+			case 7:
+				object = new Has_recorded(-1, -1);
+				break;
+			case 8:
+				object = new Medium(-1, "");
+				break;
+			case 9:
+				object = new Release(-1, "");
+				break;
+			case 10:
+				object = new Release(-1, "");
+				break;
+			case 11:
+				object = new Is_track_on(-1, -1, -1);
+				break;
+			case 12:
+				object = new Is_released(-1, -1);
 				break;
 
 			default:
 				break;
 			}
-			
+
 			new TableSelect(database, object);
 
 		} else {

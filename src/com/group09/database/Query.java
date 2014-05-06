@@ -12,6 +12,11 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] TABLES = {		
+		"CREATE TABLE Type (" +
+				"Type_id INTEGER, " +
+				"Name CHAR (10), " +
+				"PRIMARY KEY (Type_id))",		
+
 		"CREATE TABLE Gender (" +
 				"Gender_id INTEGER, " +
 				"Name CHAR (10), " +
@@ -89,6 +94,7 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] QUERIES = {
+		"SELECT * FROM Type",
 		"SELECT * FROM Gender",
 		"SELECT * FROM Genre",
 		"SELECT * FROM Area",
@@ -106,6 +112,7 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String TABLE_NAMES[] = {
+		"Type",
 		"Gender",
 		"Genre",
 		"Area",

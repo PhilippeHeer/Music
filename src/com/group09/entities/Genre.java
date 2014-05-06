@@ -6,20 +6,20 @@ package com.group09.entities;
  * 
  */
 public class Genre {
-	private int Genre_id;
-	private String Name;
-	private int Count;
+	private int genre_id;
+	private String name;
+	private int count;
 
 	/**
 	 * 
-	 * @param Genre_id
+	 * @param genre_id
 	 * @param name
 	 * @param count
 	 */
 	public Genre(int iD, String name, int count) {
-		this.Genre_id = iD;
-		this.Name = name;
-		this.Count = count;
+		this.genre_id = iD;
+		this.name = name;
+		this.count = count;
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class Genre {
 	 * @return
 	 */
 	public int getID() {
-		return Genre_id;
+		return genre_id;
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class Genre {
 	 * @param iD
 	 */
 	public void setID(int iD) {
-		this.Genre_id = iD;
+		this.genre_id = iD;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class Genre {
 	 * @return
 	 */
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Genre {
 	 * @param name
 	 */
 	public void setName(String name) {
-		this.Name = name;
+		this.name = name;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Genre {
 	 * @return
 	 */
 	public int getCount() {
-		return Count;
+		return count;
 	}
 
 	/**
@@ -67,6 +67,6 @@ public class Genre {
 	 * @param count
 	 */
 	public void setCount(int count) {
-		this.Count = count;
+		this.count = count;
 	}
 }
