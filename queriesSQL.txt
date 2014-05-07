@@ -41,8 +41,8 @@ E. Print the name of a female artist associated with the most genres.
 
 
 F. List all cities which have more female than male artists.
-SELECT 
-FROM AREA
+SELECT Area.name
+FROM Artist, Area
 WHERE
 
 
