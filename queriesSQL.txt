@@ -1,0 +1,51 @@
+A. Print the names of artists from Switzerland.
+SELECT Artist_name
+FROM ( SELECT *
+	FROM Area
+	WHERE Area_name = 'Switzerland' ) NATURAL JOIN Artist
+
+
+
+B. Print the names of areas with the highest number male artists, female artists and groups, as well as the number of artists of each type in each of the three areas.
+
+
+
+
+C. List the names of 10 groups with the most recorded tracks.
+SELECT Artits.name
+FROM ( SELECT Artist_id, COUNT(Recording_id) AS c1
+	FROM has_recorded, Artist
+	WHERE Type_id = '0'
+	GROUP BY Artist_id ) NATURAL JOIN Artist
+ORDER BY c1 DESC
+LIMIT 10
+
+
+
+
+D. List the names of 10 groups with the most releases.
+SELECT Artits.name
+FROM ( SELECT Artist_id, COUNT(Recording_id) AS c1
+	FROM has_recorded, Artist
+	WHERE Type_id = '0'
+	GROUP BY Artist_id ) NATURAL JOIN Artist
+ORDER BY c1 DESC
+LIMIT 10
+
+
+
+
+E. Print the name of a female artist associated with the most genres.
+
+
+
+
+F. List all cities which have more female than male artists.
+SELECT 
+FROM AREA
+WHERE
+
+
+
+
+G. List the releases with the highest number of tracks.
