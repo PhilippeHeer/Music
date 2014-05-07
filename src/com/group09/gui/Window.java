@@ -143,7 +143,7 @@ public class Window extends JFrame implements ActionListener {
 
 			// TODO only for assignment 2
 			if (i >= 7) {
-				jButtons[i].setEnabled(false);
+//				jButtons[i].setEnabled(false);
 			}
 
 			jPanel.add(jButtons[i]);
@@ -225,43 +225,40 @@ public class Window extends JFrame implements ActionListener {
 
 			switch (jComboBox.getSelectedIndex()) {
 			case 0:
-				object = new com.group09.entities.Type(-1, "");
+				object = new com.group09.entities.Type(0, "");
 				break;
 			case 1:
-				object = new Gender(-1, "");
+				object = new Gender(1, "");
 				break;
 			case 2:
-				object = new Genre(-1, "", -1);
+				object = new Genre(2, "", -1);
 				break;
 			case 3:
-				object = new Area(-1, "", "");
+				object = new Area(3, "", "");
 				break;
 			case 4:
-				object = new Artist(-1, "", -1, -1, -1);
+				object = new Artist(4, "", -1, -1, -1);
 				break;
 			case 5:
-				object = new Is_Genre(-1, -1);
+				object = new Is_Genre(5, -1);
 				break;
 			case 6:
-				object = new Recording(-1, "", -1);
+				object = new Recording(6, "", -1);
 				break;
 			case 7:
-				object = new Has_recorded(-1, -1);
+				object = new Has_recorded(7, -1);
 				break;
 			case 8:
-				object = new Medium(-1, "");
+				object = new Medium(8, "");
 				break;
 			case 9:
-				object = new Release(-1, "");
+				object = new Release(9, "");
 				break;
 			case 10:
-				object = new Release(-1, "");
+				object = new Is_track_on(10, -1, -1);
 				break;
 			case 11:
-				object = new Is_track_on(-1, -1, -1);
-				break;
-			case 12:
-				object = new Is_released(-1, -1);
+				object = new Is_released(11, -1);
 				break;
 
 			default:

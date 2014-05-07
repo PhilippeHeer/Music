@@ -117,13 +117,16 @@ public class TableSelect extends JFrame implements ActionListener {
 				for (int i = 0; i < field.length; i++) {
 					field[i].setAccessible(true);
 
-					if (field[i].getType().getSimpleName().equals("String")) {
-						field[i].set(object,
-								defaultTableModel.getValueAt(0, i));
-					} else if (field[i].getType().getSimpleName().equals("int")) {
-						field[i].setInt(object, Integer
-								.parseInt((String) defaultTableModel
-										.getValueAt(0, i)));
+					if (defaultTableModel.getValueAt(0, i) != null) {
+						if (field[i].getType().getSimpleName().equals("String")) {
+							field[i].set(object,
+									defaultTableModel.getValueAt(0, i));
+						} else if (field[i].getType().getSimpleName()
+								.equals("int")) {
+							field[i].setInt(object, Integer
+									.parseInt((String) defaultTableModel
+											.getValueAt(0, i)));
+						}
 					}
 				}
 			} catch (IllegalArgumentException e1) {
