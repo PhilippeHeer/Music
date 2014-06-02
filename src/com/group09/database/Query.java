@@ -195,7 +195,8 @@ public abstract class Query {
 	public static final String[] FILL_TABLES = {
 		//Type
 		"INSERT INTO Type (Type_id, Name)"
-		+ "VALUES (0, 'Person')", 
+		+ "VALUES (0, 'Person'), "
+		+ "VALUES (1, 'Group')", 
 
 		//Gender
 		"",
