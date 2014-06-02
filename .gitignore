@@ -1,8 +1,15 @@
 .settings
+
 bin
+
 .c*
+
 .p*
+
 .D*
+
 ~*
+
 Database.db
+
 hs_err*
