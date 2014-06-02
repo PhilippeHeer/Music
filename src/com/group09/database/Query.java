@@ -195,38 +195,35 @@ public abstract class Query {
 	public static final String[] FILL_TABLES = {
 		//Type
 		"INSERT INTO Type (Type_id, Name)"
-		+ "VALUES (0, 'Person'), "
-		+ "VALUES (1, 'Group')", 
-
+				+ "VALUES (0, 'Person')",
+		"INSERT INTO Type (Type_id, Name)"
+				+ "VALUES (1, 'Groupe')",
+		
 		//Gender
-		"",
 
+		//Genre
+		"INSERT INTO Genre (Genre_id, Name, Count) SELECT * FROM Genre_csv",
+				
 		//Area
-		"",
-
+		"INSERT INTO Area (Area_id, Name, Type_of_area) SELECT * FROM Area_csv",
+		
 		//Artist
-		"",
 
 		//is_genre
-		"",
 
 		//Recording
-		"",
+		"INSERT INTO Recording (Recording_id, Name, Length) SELECT * FROM Recording_csv",
 
 		//has_recorded
-		"",
 
 		//Medium
-		"",
 
 		//Release
-		"",
+		"INSERT INTO Release (Release_id, Name) SELECT * FROM Release_csv",
 
 		//is_track_on
-		"",
 
 		//is_released
-		""
 	};
 
 }
