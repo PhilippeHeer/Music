@@ -125,9 +125,9 @@ public class Database {
 			System.out.println("Creating and initializing tables...");
 			try {
 				// 1. Simple tables creation (our tables).
-				for (int i = 0; i < Query.CREATE_TABLES.length; i++) {
-					statement.execute(Query.CREATE_TABLES[i]);
-				}
+//				for (int i = 0; i < Query.CREATE_TABLES.length; i++) {
+//					statement.execute(Query.CREATE_TABLES[i]);
+//				}
 
 				// 2. Translate CSV files into new tables using SQLITE DATABASE BROWSER (done by user).
 
