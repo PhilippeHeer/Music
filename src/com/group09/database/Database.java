@@ -121,10 +121,17 @@ public class Database {
 	 */
 	public void createTables() {
 		if (!initialized) {
+			System.out.println("Creating and initializing tables...");
 			try {
-				for (int i = 0; i < Query.TABLES.length; i++) {
-					statement.executeUpdate(Query.TABLES[i]);
+				for (int i = 0; i < Query.CREATE_TABLES.length; i++) {
+					statement.execute(Query.CREATE_TABLES[i]);
 				}
+				
+				for (int i = 0; i < Query.CREATE_CSV_TABLES.length; i++) {
+					statement.execute(Query.CREATE_CSV_TABLES[i]);
+				}
+				
+				
 				initialized = true;
 			} catch (SQLException e) {
 				e.printStackTrace();

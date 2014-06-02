@@ -11,7 +11,7 @@ public abstract class Query {
 	/**
 	 * 
 	 */
-	public static final String[] TABLES = {		
+	public static final String[] CREATE_TABLES = {		
 		"CREATE TABLE Type (" +
 				"Type_id INTEGER, " +
 				"Name CHAR (10), " +
@@ -90,8 +90,73 @@ public abstract class Query {
 				"FOREIGN KEY (Release_id) REFERENCES Release)",
 	};
 	
-	public static final String[] TABLES_CSV = {	
-		"CREATE TABLE "
+	public static final String[] CREATE_CSV_TABLES = {	
+		"CREATE TABLE Area_csv (" +
+				"ID INTEGER, " +
+				"Name CHAR (200), " +
+				"Type CHAR (200), " +
+				"PRIMARY KEY (ID))",
+				
+		"CREATE TABLE Artist_csv (" +
+				"ID INTEGER, " +
+				"Name CHAR (200), " +
+				"Type CHAR (200), " +
+				"Gender CHAR (100), " +
+				"AreaID INTEGER, " +
+				"PRIMARY KEY (ID), " +
+				"FOREIGN KEY (AreaID) REFERENCES Area_csv)",
+				
+		"CREATE TABLE Artist_genre_csv (" +
+				"ArtistID INTEGER, " +
+				"GenreID INTEGER, " +
+				"PRIMARY KEY (ArtistID, GenreID), " +
+				"FOREIGN KEY (ArtistID) REFERENCES Artist_csv, " +
+				"FOREIGN KEY (GenreID) REFERENCES Genre_csv)", 
+		
+		"CREATE TABLE Artist_track_csv (" +
+				"ArtistID INTEGER, " +
+				"TrackID INTEGER, " +
+				"PRIMARY KEY (ArtistID, TrackID), " +
+				"FOREIGN KEY (ArtistID) REFERENCES Artist_csv, " +
+				"FOREIGN KEY (TrackID) REFERENCES Track_csv)",
+		
+		"CREATE TABLE Genre_csv (" +
+				"ID INTEGER, " +
+				"Name CHAR(200), " +
+				"Count INTEGER, " +
+				"PRIMARY KEY (ID))",
+				
+		"CREATE TABLE Medium_csv (" +
+				"ID INTEGER, " +
+				"ReleaseID INTEGER, " +
+				"Format CHAR(100), " + 
+				"PRIMARY KEY (ID), " +
+				"FOREIGN KEY (ReleaseID) REFERENCES Release_csv)",
+				
+		"CREATE TABLE Recording_csv (" +
+				"ID INTEGER, " +
+				"Name CHAR(200), " +
+				"Length INTEGER, " +
+				"PRIMARY KEY (ID))",
+			
+		"CREATE TABLE Release_csv (" +
+				"ID INTEGER, " +
+				"Name CHAR(200), " +
+				"PRIMARY KEY (ID))",
+				
+		"CREATE TABLE Track_csv (" +
+				"ID INTEGER, " +
+				"RecordingID INTEGER, " +
+				"MediumID INTEGER, " +
+				"Position INTEGER, " +
+				"PRIMARY KEY (ID), " +
+				"FOREIGN KEY (RecordingID) REFERENCES Recording_csv, " +
+				"FOREIGN KEY (MediumID) REFERENCES Medium_csv)"
+		
+	};
+	
+	public static final String[] FILL_CSV_TABLES = {		
+		
 	};
 
 	/**
