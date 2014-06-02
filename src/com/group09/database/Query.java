@@ -107,17 +107,19 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] QUERIES = {
+		//A
 		"SELECT Artist.Name " +
 		"FROM ( SELECT Area_id " +
 				"FROM Area " +
 				"WHERE Area.Name='Switzerland') NATURAL JOIN Artist",
 		
+		//B
 		"SELECT * FROM Gender",
 		
 		
 		
 		
-		
+		//C
 		"SELECT Name " +
 		"FROM (( SELECT h.Artist_id, COUNT(Recording_id) AS c " +
 				"FROM has_recorded h, Artist a " +
@@ -125,8 +127,42 @@ public abstract class Query {
 				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
 		"ORDER BY c DESC LIMIT 10",
 		
+		//D
+		"SELECT Name " +
+		"FROM (( SELECT a.Artist_id, COUNT(t.Recording_id) AS c " +
+				"FROM Release r1, is_released r2, is_track_on t, has_recorded h, Artist a " +
+				"WHERE r1.Release_id = r2.Release_id AND r2.Medium_id = t.Medium_id AND t.Recording_id = h.Recording_id AND h.Artist_id = a.Artist_id " +
+				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
+		"ORDER BY c DESC LIMIT 10",
 				
+		//E		
+		"SELECT Name " +
+				"FROM (( SELECT a.Artist_id, COUNT(g2.Genre_id) AS c " +
+				"FROM Artist a, Gender g1, Genre g2, is_genre i " +
+				"WHERE a.Gender_id = g1.Gender_id AND g1.Name = 'Female' AND g2.Genre_id = i.Genre_id AND i.Artist_id = a.Artist_id " +
+				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
+		"ORDER BY c DESC LIMIT 1",
+		
+		//F
+		"SELECT name " +
+		"FROM (SELECT Area_id, name, COUNT(Gender_id) as C1 " +
+				"FROM ((SELECT Gender_id, Area_id FROM Artist) NATURAL JOIN Area) " +
+				"WHERE Gender_id = 0 AND Type_of_Area='City' " +
+				"GROUP BY Area_id) " +
+				"NATURAL JOIN (SELECT Area_id, name, COUNT(Gender_id) as C2 " +
+								"FROM ((SELECT Gender_id, Area_id FROM Artist) NATURAL JOIN Area) " +
+								"WHERE Gender_id = 1 AND Type_of_Area='City' " +
+								"GROUP BY Area_id) " +
+		"WHERE C2 > C1",
 				
+		//G		
+		"SELECT Release_id " +
+		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
+				"FROM  Release r, is_released i1, is_track_on i2 " +
+				"WHERE  r.Release_id = i1.Release_id AND i1.Medium_id = i2.Medium_id " +
+				"GROUP BY r.Release_id ) " +
+		"GROUP BY Release_id HAVING MAX(c)",
+		
 				
 				
 				
