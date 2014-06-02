@@ -131,7 +131,12 @@ public class Database {
 
 				// 2. Translate CSV files into new tables using SQLITE DATABASE BROWSER (done by user).
 
-				// 3. Queries to import raw data from csv into our own tables
+				// 3. Clean all datas to protect each special character
+//				for (int i = 0; i < Query.NAMES_CSV_TABLES.length; i++) {
+//					
+//				}
+				
+				// 4. Queries to import raw data from csv into our own tables
 				for (int i = 0; i < Query.FILL_TABLES.length; i++) {
 					statement.execute(Query.FILL_TABLES[i]);
 				}
