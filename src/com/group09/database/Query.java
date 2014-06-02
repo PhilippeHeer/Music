@@ -107,9 +107,30 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] QUERIES = {
-		"SELECT * FROM Type",
+		"SELECT Artist.Name " +
+		"FROM ( SELECT Area_id " +
+				"FROM Area " +
+				"WHERE Area.Name='Switzerland') NATURAL JOIN Artist",
+		
 		"SELECT * FROM Gender",
-		"SELECT * FROM Genre",
+		
+		
+		
+		
+		
+		"SELECT Name " +
+		"FROM (( SELECT h.Artist_id, COUNT(Recording_id) AS c " +
+				"FROM has_recorded h, Artist a " +
+				"WHERE a.Type_id = '1' AND a.Artist_id = h.Artist_id " +
+				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
+		"ORDER BY c DESC LIMIT 10",
+		
+				
+				
+				
+				
+				
+				
 		"SELECT * FROM Area",
 		"SELECT * FROM Artist",
 		"SELECT * FROM is_genre",
