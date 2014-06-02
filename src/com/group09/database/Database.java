@@ -10,13 +10,14 @@ import java.sql.Statement;
 
 /**
  * 
- * @author Group 09
+ * @author Philippe
  * 
  */
 public class Database {
 	private String DBPath = "";
 	private Connection connection = null;
 	private Statement statement = null;
+	private boolean initialized = false;
 
 	/**
 	 * 
@@ -119,12 +120,15 @@ public class Database {
 	 * 
 	 */
 	public void createTables() {
-		try {
-			for (int i = 0; i < Query.TABLES.length; i++) {
-				statement.executeUpdate(Query.TABLES[i]);
+		if (!initialized) {
+			try {
+				for (int i = 0; i < Query.TABLES.length; i++) {
+					statement.executeUpdate(Query.TABLES[i]);
+				}
+				initialized = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 }

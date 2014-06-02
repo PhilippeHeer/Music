@@ -3,7 +3,7 @@ package com.group09.database;
 
 /**
  * 
- * @author Group 09
+ * @author Philippe
  * 
  */
 public abstract class Query {
@@ -88,6 +88,10 @@ public abstract class Query {
 				"PRIMARY KEY (Medium_id, Release_id), " +
 				"FOREIGN KEY (Medium_id) REFERENCES Medium, " +
 				"FOREIGN KEY (Release_id) REFERENCES Release)",
+	};
+	
+	public static final String[] TABLES_CSV = {	
+		"CREATE TABLE "
 	};
 
 	/**

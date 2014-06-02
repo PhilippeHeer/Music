@@ -5,7 +5,7 @@ import com.group09.gui.Window;
 
 /**
  * 
- * @author Group 09
+ * @author Philippe
  * 
  */
 public class Main {
@@ -18,7 +18,7 @@ public class Main {
 		Database database = new Database("Database.db");
 		database.connect();
 
-//		database.createTables();
+		database.createTables();
 
 		new Window(database);
 	}

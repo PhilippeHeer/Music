@@ -36,7 +36,7 @@ import com.group09.entities.Release;
 
 /**
  * 
- * @author Group 09
+ * @author Philippe
  * 
  */
 @SuppressWarnings("serial")
