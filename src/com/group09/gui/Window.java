@@ -59,6 +59,15 @@ public class Window extends JFrame implements ActionListener {
 	 */
 	public Window(Database database) {
 		this.database = database;
+		
+
+//		database.query("INSERT INTO Area FROM 'C:/area.csv' WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n')"); TODO
+		
+//		database.query("CREATE TABLE " + "Area"
+//				+ " AS SELECT * FROM CSVREAD (\"area.csv\");");				
+		
+//		database.query("mode tabs");
+//		database.query(".import area.csv Area");
 
 		initializeWindow();
 	}

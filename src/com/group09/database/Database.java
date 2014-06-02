@@ -131,9 +131,6 @@ public class Database {
 					statement.execute(Query.CREATE_CSV_TABLES[i]);
 				}
 				
-				statement.execute("separator \"\t\"");
-				statement.execute("import area.csv Area");
-				
 				initialized = true;
 			} catch (SQLException e) {
 				e.printStackTrace();
