@@ -1,4 +1,4 @@
-SELECT Release_id 
+SELECT Name 
 FROM Release 
 WHERE Release_id IN (
     SELECT Release_id 
