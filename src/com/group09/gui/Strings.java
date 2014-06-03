@@ -56,5 +56,24 @@ public abstract class Strings {
 			"List the most popular genre among the groups which are associated with at least 3 genres.",
 			"List the 5 most popular song titles along with the number of songs that share such title.",
 			"List the top 10 artists according to their track to release ratio.",
-			"The concert hit index is a measure of probability that the artist can attract enough fans to fill a football stadium. We define the “hit artist” as one that has more than 10 songs that appear on more than 100 mediums and measure \"hit ability\" as the average number of mediums that a top 10 song appears on. List all “hit artists” according to their \"hit ability\"." };
+			"The concert hit index is a measure of probability that the artist can attract enough fans to fill a football stadium. We define the “hit artist” as one that has more than 10 songs that appear on more than 100 mediums and measure \"hit ability\" as the average number of mediums that a top 10 song appears on. List all “hit artists” according to their \"hit ability\"."		
+	};
+	
+	/**
+	 * 
+	 */
+	public static final String TABLE_NAMES[] = {
+		"Type",
+		"Gender",
+		"Genre",
+		"Area",
+		"Artist",
+		"is_genre",
+		"Recording",
+		"has_recorded",
+		"Medium",
+		"Release",
+		"is_track_on",
+		"is_released",
+	};
 }

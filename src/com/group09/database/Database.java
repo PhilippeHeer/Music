@@ -122,24 +122,31 @@ public class Database {
 	 * 
 	 */
 	public void createTables() {
-		System.out.println("Creating and initializing tables...");
+
 		// 1. Simple tables creation (our tables).
-		// for (int i = 0; i < Query.CREATE_TABLES.length; i++) {
-		// statement.execute(Query.CREATE_TABLES[i]);
-		// }
+		String query = "";
+		Scanner scanner;
+		try {
+			scanner = new Scanner(new File("createTables/createTables.sql"));
+			while (scanner.hasNext()) {
+				query = scanner.nextLine();
+
+				if (!((query.equals("")) || (query.charAt(0) == '/'))) {
+					statement.execute(query);
+				}
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		// 2. Translate CSV files into new tables using SQLITE DATABASE
 		// BROWSER (done by user).
 
 		// 3. Clean all datas to protect each special character
-		// for (int i = 0; i < Query.NAMES_CSV_TABLES.length; i++) {
-		//
-		// }
 
-		
 		// 4. Queries to import raw data from csv into our own tables
-		String query = "";
-		Scanner scanner;
 		try {
 			scanner = new Scanner(new File("fillTables/fillTables.sql"));
 			while (scanner.hasNext()) {

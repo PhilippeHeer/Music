@@ -25,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.group09.constants.Constants;
 import com.group09.database.Database;
-import com.group09.database.Query;
 import com.group09.entities.Area;
 import com.group09.entities.Artist;
 import com.group09.entities.Gender;
@@ -119,13 +118,13 @@ public class Window extends JFrame implements ActionListener {
 		jButton1.setPreferredSize(new Dimension(330, 30));
 		jPanel.add(jButton1);
 
-		jButton2 = new JButton(Strings.ADD_ROW + " " + Query.TABLE_NAMES[0]);
+		jButton2 = new JButton(Strings.ADD_ROW + " " + Strings.TABLE_NAMES[0]);
 		jButton2.setToolTipText(Strings.ADD_ROW_TOOLTIP);
 		jButton2.addActionListener(this);
 		jButton2.setPreferredSize(new Dimension(330, 30));
 		jPanel.add(jButton2);
 
-		jComboBox = new JComboBox<String>(Query.TABLE_NAMES);
+		jComboBox = new JComboBox<String>(Strings.TABLE_NAMES);
 		jComboBox.addActionListener(this);
 		jComboBox.setPreferredSize(new Dimension(330, 30));
 		jPanel.add(jComboBox);
@@ -228,7 +227,7 @@ public class Window extends JFrame implements ActionListener {
 
 		} else if (e.getSource() == jComboBox) {
 			jButton2.setText(Strings.ADD_ROW + " "
-					+ Query.TABLE_NAMES[jComboBox.getSelectedIndex()]);
+					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()]);
 		} else if (e.getSource() == jButton2) {
 			Object object = null;
 
