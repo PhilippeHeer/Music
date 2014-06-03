@@ -91,18 +91,6 @@ public abstract class Query {
 				"FOREIGN KEY (Release_id) REFERENCES Release)",
 	};
 
-	public static final String[] NAMES_CSV_TABLES = {	
-		"Area_csv",
-		"Artist_csv",
-		"Artist_genre_csv",
-		"Artist_track_csv",
-		"Genre_csv",
-		"Medium_csv",
-		"Recording_csv",
-		"Release_csv",
-		"Track_csv",
-	};
-
 	/**
 	 * 
 	 */
@@ -115,7 +103,7 @@ public abstract class Query {
 		
 				
 				
-		//B TODO too long..
+		//B TODO
 		"SELECT * FROM Type",
 		
 		
@@ -165,7 +153,7 @@ public abstract class Query {
 		
 		
 		//G TODO
-		"SELECT Release_id " +
+		"SELECT * " +
 		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
 				"FROM  Release r, is_released i1, is_track_on i2 " +
 				"WHERE  r.Release_id = i1.Release_id AND i1.Medium_id = i2.Medium_id " +
@@ -173,33 +161,69 @@ public abstract class Query {
 		"GROUP BY Release_id HAVING MAX(c)",
 		
 				
-				
-
+		
+		//H TODO
+		"SELECT * FROM Type",
 		
 		
 		
+		//I TODO
+		"SELECT * FROM Type",
 		
 		
 		
+		//J TODO
+		"SELECT * FROM Type",
 		
 		
 		
+		//K TODO
+		"SELECT * FROM Type",
 		
 		
 		
+		//L TODO
+		"SELECT * FROM Type",
 		
 		
 		
-				
-		"SELECT * FROM Area",
-		"SELECT * FROM Artist",
-		"SELECT * FROM is_genre",
-		"SELECT * FROM Recording",
-		"SELECT * FROM has_recorded",
-		"SELECT * FROM Medium",
-		"SELECT * FROM Release",
-		"SELECT * FROM is_track_on",
-		"SELECT * FROM is_released",
+		//M TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//N TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//O TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//P TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//Q TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//R TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//S TODO
+		"SELECT * FROM Type",
+		
+		
+		
+		//T TODO
+		"SELECT * FROM Type",
 	};
 
 	/**
@@ -265,5 +289,4 @@ public abstract class Query {
 		//14 is_released
 		"INSERT INTO is_released (Medium_id, Release_id) SELECT ID, ReleaseID FROM Medium_csv"
 	};
-
 }
