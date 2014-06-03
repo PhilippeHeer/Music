@@ -175,22 +175,25 @@ public abstract class Query {
 		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
 				"FROM  Release r, is_released i1, is_track_on i2 " +
 				"WHERE  r.Release_id = i1.Release_id AND i1.Medium_id = i2.Medium_id " +
-				"GROUP BY r.Release_id ) " +
+				"GROUP BY r.Release_id " +
+//		"WHERE c = MAX(c) " +
 		"GROUP BY Release_id HAVING MAX(c)",
 		
 				
 		
 
-		//H TODO
-		"SELECT Area_id " +
-		"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
-				"FROM ( SELECT a.Area_id, a.Artist_id " +
-						"FROM Artist a " +
-						"WHERE a.Type_id = 'Person' ) NATURAL JOIN Area " +
-				"GROUP BY Area_id) " +
-		"WHERE c > 30",	
+		//H TODO missing the part with the most tracks recorded
+		"SELECT Name " +
+		"FROM (SELECT Area_id " +
+				"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
+						"FROM ( SELECT a.Area_id, a.Artist_id " +
+								"FROM Artist a " +
+								"WHERE a.Type_id = 'Person' ) NATURAL JOIN Area " +
+						"GROUP BY Area_id) " +
+				"WHERE c > 30) NATURAL JOIN Artist " +
+		"WHERE Gender_id = 'Male' OR Gender_id = 'Female' ",
 		
-				
+		
 		
 		//I TODO
 		"SELECT * FROM Type",
@@ -208,12 +211,40 @@ public abstract class Query {
 		
 		
 		//L TODO
-		"SELECT * FROM Type",
+		"SELECT Name " +
+		"FROM Genre " +
+		"WHERE Genre_id NOT IN " + 
+		"(SELECT Genre_id " +
+		"FROM ( SELECT Genre_id, Gender_id, Type_id FROM ( ( SELECT Artist_id, Gender_id, Type_id FROM Artist ) NATURAL JOIN is_genre ) NATURAL JOIN Genre ) " +
+		"WHERE Gender_id = 'Male') " +
+		"UNION " + 
+		"SELECT Name " + 
+		"FROM Genre " +
+		"WHERE Genre_id NOT IN " + 
+		"(SELECT Genre_id " +
+		"FROM ( SELECT Genre_id, Gender_id, Type_id FROM ( ( SELECT Artist_id, Gender_id, Type_id FROM Artist ) NATURAL JOIN is_genre ) NATURAL JOIN Genre ) " +
+		"WHERE Gender_id = 'Female' ) " +
+		"UNION " +
+		"SELECT Name " + 
+		"FROM Genre " +
+		"WHERE Genre_id NOT IN " + 
+		"(SELECT Genre_id " +
+		"FROM ( SELECT Genre_id, Gender_id, Type_id FROM ( ( SELECT Artist_id, Gender_id, Type_id FROM Artist ) NATURAL JOIN is_genre ) NATURAL JOIN Genre ) " +
+		"WHERE Type_id = 'Group') ",
 		
 		
 		
-		//M TODO
-		"SELECT * FROM Type",
+		//M TODO missing the part with the highest number of tracks
+		"SELECT Name " +
+		"FROM (SELECT Area_id " +
+				"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
+						"FROM ( SELECT a.Area_id, a.Artist_id " +
+								"FROM Artist a " +
+								"WHERE a.Type_id = 'Group' ) NATURAL JOIN Area " +
+						"GROUP BY Area_id) " +
+				"WHERE c > 10) NATURAL JOIN Artist " +
+		"WHERE Gender_id = 'Male' " +
+		"LIMIT 5",
 		
 		
 		
