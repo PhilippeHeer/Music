@@ -11,6 +11,24 @@ public abstract class Query {
 	/**
 	 * 
 	 */
+	public static final String TABLE_NAMES[] = {
+		"Type",
+		"Gender",
+		"Genre",
+		"Area",
+		"Artist",
+		"is_genre",
+		"Recording",
+		"has_recorded",
+		"Medium",
+		"Release",
+		"is_track_on",
+		"is_released",
+	};
+
+	/**
+	 * 
+	 */
 	public static final String[] CREATE_TABLES = {		
 		"CREATE TABLE Type (" +
 				"Type_id INTEGER, " +
@@ -229,21 +247,6 @@ public abstract class Query {
 	/**
 	 * 
 	 */
-	public static final String TABLE_NAMES[] = {
-		"Type",
-		"Gender",
-		"Genre",
-		"Area",
-		"Artist",
-		"is_genre",
-		"Recording",
-		"has_recorded",
-		"Medium",
-		"Release",
-		"is_track_on",
-		"is_released",
-	};
-
 	public static final String[] FILL_TABLES = {
 		//0 Type
 		"INSERT INTO Type (Type_id, Name)"
