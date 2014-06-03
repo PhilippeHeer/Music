@@ -170,7 +170,7 @@ public abstract class Query {
 		
 		
 		
-		//G TODO
+		//G TODO need to review
 		"SELECT * " +
 		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
 				"FROM  Release r, is_released i1, is_track_on i2 " +
@@ -180,10 +180,17 @@ public abstract class Query {
 		
 				
 		
+
 		//H TODO
-		"SELECT * FROM Type",
+		"SELECT Area_id " +
+		"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
+				"FROM ( SELECT a.Area_id, a.Artist_id " +
+						"FROM Artist a " +
+						"WHERE a.Type_id = 'Person' ) NATURAL JOIN Area " +
+				"GROUP BY Area_id) " +
+		"WHERE c > 30",	
 		
-		
+				
 		
 		//I TODO
 		"SELECT * FROM Type",
