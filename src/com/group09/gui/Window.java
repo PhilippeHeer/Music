@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -212,6 +214,7 @@ public class Window extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("resource")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jButton1) {
@@ -279,11 +282,19 @@ public class Window extends JFrame implements ActionListener {
 
 					Timing.startCounter();
 
-//					FileInputStream fileInputStream = new FileInputStream()
-					
-					
-					
-					updateJTable(database.query(Query.QUERIES[index]));
+					String query = "";
+					Scanner scanner;
+					try {
+						scanner = new Scanner(new File("queries/"
+								+ jButtons[index].getText() + ".sql"));
+						while (scanner.hasNext()) {
+							query += scanner.nextLine();
+						}
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+
+					updateJTable(database.query(query));
 
 					Timing.stopCounter();
 					break;
