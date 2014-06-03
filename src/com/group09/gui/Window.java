@@ -279,8 +279,6 @@ public class Window extends JFrame implements ActionListener {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
 				if (e.getSource() == jButtons[index]) {
 
-					Timing.startCounter();
-
 					String query = "";
 					Scanner scanner;
 					try {
@@ -293,9 +291,13 @@ public class Window extends JFrame implements ActionListener {
 						e1.printStackTrace();
 					}
 
-					updateJTable(database.query(query));
+					Timing.startCounter();
 
+					ResultSet resultSet = database.query(query); 
+					
 					Timing.stopCounter();
+
+					updateJTable(resultSet);
 					break;
 				}
 			}
