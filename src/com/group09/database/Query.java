@@ -107,61 +107,64 @@ public abstract class Query {
 	 * 
 	 */
 	public static final String[] QUERIES = {
-		//A
-		"SELECT * " +
-		"FROM ( SELECT a.Area_id " +
-				"FROM Area a " +
-				"WHERE a.Name = 'Switzerland') NATURAL JOIN Artist",
-		
-		//B
-		"SELECT Artist_id, c " +
-		"FROM (SELECT a.Artist_id, COUNT(i.Genre_id) as c " +
-				"FROM Artist a, is_genre i, Type t " +
-				"WHERE a.Artist_id = i.Artist_id AND a.Type_id = t.Type_id AND t.Name = 'Female'" +
-				"GROUP BY a.Artist_id) " +
-		"ORDER BY c " +
-		"DESC LIMIT 10",
-		
-		
-		
-		
-		//C
+		//A OK
 		"SELECT Name " +
-		"FROM (( SELECT h.Artist_id, COUNT(Recording_id) AS c " +
+		"FROM ( SELECT Area_id " +
+				"FROM Area " +
+				"WHERE Name = 'Switzerland') NATURAL JOIN Artist",
+		
+				
+				
+		//B TODO too long..
+		"SELECT * FROM Type",
+		
+		
+		
+		//C TODO has_recorded is missing
+		"SELECT * " +
+		"FROM ( SELECT h.Artist_id, COUNT(Recording_id) AS c " +
 				"FROM has_recorded h, Artist a " +
 				"WHERE a.Type_id = '1' AND a.Artist_id = h.Artist_id " +
-				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
+				"GROUP BY a.Artist_id ) " +
 		"ORDER BY c DESC LIMIT 10",
 		
-		//D
+		
+		
+		//D TODO has_recorded is missing
 		"SELECT Name " +
-		"FROM (( SELECT a.Artist_id, COUNT(t.Recording_id) AS c " +
+		"FROM ( SELECT a.Artist_id, COUNT(t.Recording_id) AS c " +
 				"FROM Release r1, is_released r2, is_track_on t, has_recorded h, Artist a " +
 				"WHERE r1.Release_id = r2.Release_id AND r2.Medium_id = t.Medium_id AND t.Recording_id = h.Recording_id AND h.Artist_id = a.Artist_id " +
-				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
-		"ORDER BY c DESC LIMIT 10",
-				
-		//E		
-		"SELECT Name " +
-				"FROM (( SELECT a.Artist_id, COUNT(g2.Genre_id) AS c " +
-				"FROM Artist a, Gender g1, Genre g2, is_genre i " +
-				"WHERE a.Gender_id = g1.Gender_id AND g1.Name = 'Female' AND g2.Genre_id = i.Genre_id AND i.Artist_id = a.Artist_id " +
-				"GROUP BY a.Artist_id ) NATURAL JOIN Artist) " +
-		"ORDER BY c DESC LIMIT 1",
+				"GROUP BY a.Artist_id ) " +
+		"ORDER BY c DESC LIMIT 10",		
 		
-		//F
+		
+		
+		//E OK but Gender_id and Type_id is not a number..
+		"SELECT Name " +
+		"FROM (SELECT a.Name, COUNT(i.Genre_id) as c, a.Gender_id, a.Type_id " +
+				"FROM Artist a, is_genre i " +
+				"WHERE a.Artist_id = i.Artist_id AND a.Gender_id = 'Female' AND a.Type_id = 'Person' " +
+				"GROUP BY a.Artist_id) " +
+		"ORDER BY c DESC LIMIT 1",
+			
+		
+				
+		//F OK but Gender_id and Type_id is not a number..
 		"SELECT name " +
 		"FROM (SELECT Area_id, name, COUNT(Gender_id) as C1 " +
 				"FROM ((SELECT Gender_id, Area_id FROM Artist) NATURAL JOIN Area) " +
-				"WHERE Gender_id = 0 AND Type_of_Area='City' " +
+				"WHERE Gender_id = 'Male' AND Type_of_Area='City' " +
 				"GROUP BY Area_id) " +
 				"NATURAL JOIN (SELECT Area_id, name, COUNT(Gender_id) as C2 " +
 								"FROM ((SELECT Gender_id, Area_id FROM Artist) NATURAL JOIN Area) " +
-								"WHERE Gender_id = 1 AND Type_of_Area='City' " +
+								"WHERE Gender_id = 'Female' AND Type_of_Area='City' " +
 								"GROUP BY Area_id) " +
 		"WHERE C2 > C1",
-				
-		//G		
+		
+		
+		
+		//G TODO
 		"SELECT Release_id " +
 		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
 				"FROM  Release r, is_released i1, is_track_on i2 " +
@@ -171,7 +174,22 @@ public abstract class Query {
 		
 				
 				
-				
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 				
 		"SELECT * FROM Area",
 		"SELECT * FROM Artist",
@@ -233,7 +251,7 @@ public abstract class Query {
 		"INSERT INTO Recording (Recording_id, Name, Length) SELECT * FROM Recording_csv",
 
 		//10 has_recorded
-//		"INSERT INTO has_recorded (Artist_id, Recording_id) SELECT a.ArtistID, t.RecordingID FROM Artist_track_csv a, Track_csv t WHERE a.TrackID = t.ID",
+		"INSERT INTO has_recorded (Artist_id, Recording_id) SELECT a.ArtistID, t.RecordingID FROM Artist_track_csv a, Track_csv t WHERE a.TrackID = t.ID",
 
 		//11 Medium
 		"INSERT INTO Medium (Medium_id, Format) SELECT ID, Format FROM Medium_csv",
