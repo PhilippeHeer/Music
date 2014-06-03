@@ -1,5 +1,5 @@
 /* Type */
-/INSERT INTO Type (Type_id, Name) VALUES (0, 'Person')
+INSERT INTO Type (Type_id, Name) VALUES (0, 'Person')
 /INSERT INTO Type (Type_id, Name) VALUES (1, 'Groupe')
 
 /* Gender */
