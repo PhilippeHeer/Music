@@ -1,5 +1,5 @@
-SELECT Name
-FROM Genre
+SELECT Name 
+FROM Genre 
 WHERE Genre_id IN (
 
     SELECT Genre_id 
