@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ import com.group09.entities.Is_track_on;
 import com.group09.entities.Medium;
 import com.group09.entities.Recording;
 import com.group09.entities.Release;
+import com.group09.time.Timing;
 
 /**
  * 
@@ -95,7 +97,7 @@ public class Window extends JFrame implements ActionListener {
 			}
 		});
 
-		setTitle("Assignment 2");
+		setTitle("Assignment Databse");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024, 768);
 		setLocationRelativeTo(null);
@@ -144,7 +146,7 @@ public class Window extends JFrame implements ActionListener {
 
 			// TODO only for assignment 2
 			if (i >= 7) {
-//				jButtons[i].setEnabled(false);
+				// jButtons[i].setEnabled(false);
 			}
 
 			jPanel.add(jButtons[i]);
@@ -199,7 +201,7 @@ public class Window extends JFrame implements ActionListener {
 				}
 
 				defaultTableModel.addRow(data);
-				
+
 				line++;
 			}
 		} catch (SQLException e1) {
@@ -274,7 +276,16 @@ public class Window extends JFrame implements ActionListener {
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
 				if (e.getSource() == jButtons[index]) {
+
+					Timing.startCounter();
+
+//					FileInputStream fileInputStream = new FileInputStream()
+					
+					
+					
 					updateJTable(database.query(Query.QUERIES[index]));
+
+					Timing.stopCounter();
 					break;
 				}
 			}

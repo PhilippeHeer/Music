@@ -121,12 +121,96 @@ public abstract class Query {
 		
 				
 				
-		//B TODO
+		//B TODO				
 		"SELECT * FROM Type",
+		/*SELECT a1.Name, male, female, groups
+		FROM Area a1, (
+		    SELECT *
+		    FROM(
+		        SELECT Area_id, male, female, groups
+		        FROM (
+		            SELECT a1.Area_id, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		            FROM Area a1, Artist a2 
+		            WHERE a1.Area_id = a2.Area_id 
+		            GROUP BY a1.Area_id 
+		        )
+		        WHERE male IN (
+		            SELECT MAX(male)
+		            FROM(
+		                SELECT a1.Area_id, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                    COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		                FROM Area a1, Artist a2 
+		                WHERE a1.Area_id = a2.Area_id 
+		                GROUP BY a1.Area_id 
+		            )
+		        )
+		        LIMIT 1 
+		    )
+		    UNION ALL
+		    SELECT *
+		    FROM(
+		        SELECT Area_id, male, female, groups
+		        FROM (
+		            SELECT a1.Area_id, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		            FROM Area a1, Artist a2 
+		            WHERE a1.Area_id = a2.Area_id 
+		            GROUP BY a1.Area_id 
+		        )
+		        WHERE female IN (
+		            SELECT MAX(female)
+		            FROM(
+		                SELECT a1.Area_id, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                    COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		                FROM Area a1, Artist a2 
+		                WHERE a1.Area_id = a2.Area_id 
+		                GROUP BY a1.Area_id 
+		            )
+		        )
+		        LIMIT 1 
+		    )
+		    UNION ALL
+		    SELECT *
+		    FROM(
+		        SELECT Area_id, male, female, groups
+		        FROM (
+		            SELECT a1.Area_id, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		            FROM Area a1, Artist a2 
+		            WHERE a1.Area_id = a2.Area_id 
+		            GROUP BY a1.Area_id 
+		        )
+		        WHERE groups IN (
+		            SELECT MAX(groups)
+		            FROM(
+		                SELECT a1.Area_id, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Male' THEN 1 ELSE NULL END) AS male, 
+		                    COUNT(CASE WHEN a2.Gender_id = 'Female' THEN 1 ELSE NULL END) AS female,
+		                    COUNT(CASE WHEN a2.Type_id = 'Group' THEN 1 ELSE NULL END) AS groups 
+		                FROM Area a1, Artist a2 
+		                WHERE a1.Area_id = a2.Area_id 
+		                GROUP BY a1.Area_id 
+		            )
+		        )
+		        LIMIT 1 
+		    )
+		) a2
+		WHERE a1.Area_id = a2.Area_id*/
 		
 		
 		
-		//C TODO has_recorded is missing
+		//C has_recorded is missing
 		"SELECT * " +
 		"FROM ( SELECT h.Artist_id, COUNT(Recording_id) AS c " +
 				"FROM has_recorded h, Artist a " +
@@ -136,7 +220,7 @@ public abstract class Query {
 		
 		
 		
-		//D TODO has_recorded is missing
+		//D has_recorded is missing
 		"SELECT Name " +
 		"FROM ( SELECT a.Artist_id, COUNT(t.Recording_id) AS c " +
 				"FROM Release r1, is_released r2, is_track_on t, has_recorded h, Artist a " +
@@ -146,7 +230,7 @@ public abstract class Query {
 		
 		
 		
-		//E OK but Gender_id and Type_id is not a number..
+		//E
 		"SELECT Name " +
 		"FROM (SELECT a.Name, COUNT(i.Genre_id) as c, a.Gender_id, a.Type_id " +
 				"FROM Artist a, is_genre i " +
@@ -156,7 +240,7 @@ public abstract class Query {
 			
 		
 				
-		//F OK but Gender_id and Type_id is not a number..
+		//F
 		"SELECT name " +
 		"FROM (SELECT Area_id, name, COUNT(Gender_id) as C1 " +
 				"FROM ((SELECT Gender_id, Area_id FROM Artist) NATURAL JOIN Area) " +
@@ -170,19 +254,29 @@ public abstract class Query {
 		
 		
 		
-		//G TODO need to review
-		"SELECT * " +
-		"FROM ( SELECT r.Release_id, COUNT(i2.Recording_id) AS c " +
+		//G
+		"SELECT Release_id " +
+		"FROM Release " +
+		"WHERE Release_id IN ( " +
+		    "SELECT Release_id " +
+		    "FROM ( " +
+				"SELECT r.Release_id, COUNT(i2.Recording_id) AS a " +
 				"FROM  Release r, is_released i1, is_track_on i2 " +
 				"WHERE  r.Release_id = i1.Release_id AND i1.Medium_id = i2.Medium_id " +
-				"GROUP BY r.Release_id " +
-//		"WHERE c = MAX(c) " +
-		"GROUP BY Release_id HAVING MAX(c)",
+				"GROUP BY r.Release_id ) " +
+			"WHERE a IN ( " +
+				"SELECT MAX(b) " +
+				"FROM ( " +
+					"SELECT r.Release_id, COUNT(i2.Recording_id) AS b " +
+					"FROM  Release r, is_released i1, is_track_on i2 " +
+					"WHERE  r.Release_id = i1.Release_id AND i1.Medium_id = i2.Medium_id " +
+					"GROUP BY r.Release_id ) " +
+			") " +
+		") ",
 		
-				
-		
+						
 
-		//H TODO missing the part with the most tracks recorded
+		//H missing the part with the most tracks recorded
 		"SELECT Name " +
 		"FROM (SELECT Area_id " +
 				"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
@@ -210,7 +304,7 @@ public abstract class Query {
 		
 		
 		
-		//L TODO
+		//L
 		"SELECT Name " +
 		"FROM Genre " +
 		"WHERE Genre_id NOT IN " + 
@@ -234,7 +328,7 @@ public abstract class Query {
 		
 		
 		
-		//M TODO missing the part with the highest number of tracks
+		//M missing the part with the highest number of tracks
 		"SELECT Name " +
 		"FROM (SELECT Area_id " +
 				"FROM (SELECT Area_id, COUNT(Artist_id) as c " +
@@ -263,9 +357,45 @@ public abstract class Query {
 		
 		
 		
-		//Q TODO
-		"SELECT * FROM Type",
-		
+		//Q
+		"SELECT Name " +
+		"FROM Genre " +
+		"WHERE Genre_id IN ( " +
+		    "SELECT Genre_id " +
+		    "FROM ( " +
+		        "SELECT g.Genre_id, COUNT(a.Artist_id) as art1 " +
+		        "FROM Artist a, is_genre i, Genre g " + 
+		        "WHERE a.Artist_id = i.Artist_id AND i.Genre_id = g.Genre_id AND a.Artist_id IN ( " + 
+		            "SELECT Artist_id " +
+		                "FROM ( " +
+		                "SELECT a.Artist_id, COUNT(g.Genre_id) as gen " + 
+		                "FROM Artist a, is_genre i, Genre g " +
+		                "WHERE a.Type_id = 'Group' AND a.Artist_id = i.Artist_id AND i.Genre_id = g.Genre_id " + 
+		                "GROUP BY a.Artist_id " +
+		            ") " +
+		            "WHERE gen > 2 " +
+		        ") " +
+		        "GROUP BY g.Genre_id " + 
+		    ") " +
+		    "WHERE art1 IN ( " +
+		        "SELECT MAX(art2) " +
+		        "FROM( " +
+		        "SELECT g.Genre_id, COUNT(a.Artist_id) as art2 " +
+		        "FROM Artist a, is_genre i, Genre g " +
+		        "WHERE a.Artist_id = i.Artist_id AND i.Genre_id = g.Genre_id AND a.Artist_id IN ( " + 
+		            "SELECT Artist_id " +
+		            "FROM ( " +
+		                    "SELECT a.Artist_id, COUNT(g.Genre_id) as gen " + 
+		                    "FROM Artist a, is_genre i, Genre g " +
+		                    "WHERE a.Type_id = 'Group' AND a.Artist_id = i.Artist_id AND i.Genre_id = g.Genre_id " + 
+		                    "GROUP BY a.Artist_id " +
+		                ") " +
+		                "WHERE gen > 2 " +
+		            ") " +
+		            "GROUP BY g.Genre_id " + 
+		        ") " +
+		    ") " +
+		") ",		
 		
 		
 		//R TODO
