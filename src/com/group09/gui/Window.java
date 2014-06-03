@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
+import com.group09.constants.Constants;
 import com.group09.database.Database;
 import com.group09.database.Query;
 import com.group09.entities.Area;
@@ -189,7 +190,8 @@ public class Window extends JFrame implements ActionListener {
 				defaultTableModel.addColumn(columnNames[i]);
 			}
 
-			while (resultSet.next()) {
+			int line = 0;
+			while (resultSet.next() && (line <= Constants.MAX_LINE)) {
 				String data[] = new String[columnCount];
 
 				for (int i = 0; i < columnCount; i++) {
@@ -197,6 +199,8 @@ public class Window extends JFrame implements ActionListener {
 				}
 
 				defaultTableModel.addRow(data);
+				
+				line++;
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
