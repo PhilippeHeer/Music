@@ -135,6 +135,8 @@ public class Database {
 
 			// 4. Queries to import raw data from csv into our own tables
 			for (int i = 0; i < Query.FILL_TABLES.length; i++) {
+				System.out.println("Loading " + i);
+				
 				statement.execute(Query.FILL_TABLES[i]);
 			}
 
