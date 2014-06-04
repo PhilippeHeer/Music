@@ -228,6 +228,8 @@ public class Window extends JFrame implements ActionListener {
 		} else if (e.getSource() == jComboBox) {
 			jButton2.setText(Strings.ADD_ROW + " "
 					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()]);
+			String query = "SELECT * FROM " + Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+			updateJTable(database.query(query));
 		} else if (e.getSource() == jButton2) {
 			Object object = null;
 
