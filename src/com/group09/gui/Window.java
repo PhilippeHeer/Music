@@ -125,8 +125,9 @@ public class Window extends JFrame implements ActionListener {
 		jButton2.addActionListener(this);
 		jButton2.setPreferredSize(new Dimension(250, 30));
 		jPanel.add(jButton2);
-		
-		jButton3 = new JButton(Strings.DELETE_ROW + " " + Strings.TABLE_NAMES[0]);
+
+		jButton3 = new JButton(Strings.DELETE_ROW + " "
+				+ Strings.TABLE_NAMES[0]);
 		jButton3.setToolTipText(Strings.DELETE_ROW_TOOLTIP);
 		jButton3.addActionListener(this);
 		jButton3.setPreferredSize(new Dimension(250, 30));
@@ -218,11 +219,12 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 
-	public void updateTable(){
-		String query = "SELECT * FROM " + Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+	public void updateTable() {
+		String query = "SELECT * FROM "
+				+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
 		updateJTable(database.query(query));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -236,14 +238,15 @@ public class Window extends JFrame implements ActionListener {
 							this,
 							"Please enter your search query\n(\"SELECT * FROM GENRE\")",
 							null);
-			if(name2 != null){
+			if (name2 != null) {
 				updateJTable(database.query(name2));
 			}
 
 		} else if (e.getSource() == jComboBox) {
 			jButton2.setText(Strings.ADD_ROW + " "
 					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()]);
-			String query = "SELECT * FROM " + Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+			String query = "SELECT * FROM "
+					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
 			updateJTable(database.query(query));
 		} else if (e.getSource() == jButton2) {
 			Object object = null;
@@ -351,17 +354,19 @@ public class Window extends JFrame implements ActionListener {
 						while (scanner.hasNext()) {
 							query += scanner.nextLine();
 						}
+
+						Timing.startCounter();
+
+						ResultSet resultSet = database.query(query);
+
+						Timing.stopCounter();
+
+						updateJTable(resultSet);
 					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
+						System.out
+								.println("Query " + ++index + " not implemented");
 					}
 
-					Timing.startCounter();
-
-					ResultSet resultSet = database.query(query); 
-					
-					Timing.stopCounter();
-
-					updateJTable(resultSet);
 					break;
 				}
 			}
