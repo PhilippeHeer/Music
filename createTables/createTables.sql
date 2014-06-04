@@ -87,3 +87,5 @@ CREATE TABLE is_released (
         FOREIGN KEY (Medium_id) REFERENCES Medium,
         FOREIGN KEY (Release_id) REFERENCES Release
 )
+
+

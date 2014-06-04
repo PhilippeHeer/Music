@@ -1,11 +1,11 @@
 /* Type */
 INSERT INTO Type (Type_id, Name) VALUES (0, 'Person')
-INSERT INTO Type (Type_id, Name) VALUES (1, 'Groupe')
+INSERT INTO Type (Type_id, Name) VALUES (1, 'Group')
 
 /* Gender */
 INSERT INTO Gender (Gender_id, Name) VALUES (0, 'Male')
 INSERT INTO Gender (Gender_id, Name) VALUES (1, 'Female')
-INSERT INTO Gender (Gender_id, Name) VALUES (2, 'Ohter')
+INSERT INTO Gender (Gender_id, Name) VALUES (2, 'Other')
 
 /* Genre */
 INSERT INTO Genre (Genre_id, Name, Count) SELECT * FROM Genre_csv
@@ -14,7 +14,7 @@ INSERT INTO Genre (Genre_id, Name, Count) SELECT * FROM Genre_csv
 INSERT INTO Area (Area_id, Name, Type_of_area) SELECT * FROM Area_csv
 
 /* Artist */
-INSERT INTO Artist (Artist_id, Name, Type_id, Gender_id, Area_id) SELECT * FROM Artist_csv
+INSERT INTO Artist (Artist_id, Name, Type_id, Gender_id, Area_id) SELECT * FROM Artist_csv 
 
 /* is_genre */
 INSERT INTO is_genre (Artist_id, Genre_id) SELECT *  FROM Artist_genre_csv
@@ -22,10 +22,7 @@ INSERT INTO is_genre (Artist_id, Genre_id) SELECT *  FROM Artist_genre_csv
 /* Recording */
 INSERT INTO Recording (Recording_id, Name, Length) SELECT * FROM Recording_csv
 
-/* has_recorded */
-INSERT INTO has_recorded (Artist_id, Recording_id) SELECT DISTINCT a.ArtistID, t.RecID FROM artist_track_csv a, Track_csv t WHERE a.TrackID = t.TrackID 
-
-/* Medium */b
+/* Medium */
 INSERT INTO Medium (Medium_id, Format) SELECT ID, Format FROM Medium_csv
 
 /* Release */
@@ -36,3 +33,6 @@ INSERT INTO is_track_on (Recording_id, Medium_id, Position) SELECT RecordingID, 
 
 /* is_released */
 INSERT INTO is_released (Medium_id, Release_id) SELECT ID, ReleaseID FROM Medium_csv
+
+/* has_recorded */
+INSERT INTO has_recorded (Artist_id, Recording_id) SELECT DISTINCT ArtistID, RecordingID FROM artist_track_csv NATURAL JOIN Track_csv
