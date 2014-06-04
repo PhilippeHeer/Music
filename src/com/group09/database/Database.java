@@ -124,9 +124,10 @@ public class Database {
 	 * @param object
 	 */
 	public void deleteRow(Object object) {
+		String string = "";
 		try {
-			String string = "DELETE FROM " + object.getClass().getSimpleName()
-					+ " WHERE";
+			string = "DELETE FROM " + object.getClass().getSimpleName()
+					+ " WHERE ";
 			
 			int number = 0;
 
@@ -146,19 +147,7 @@ public class Database {
 					}
 				}
 			}
-			for (int i=0; i<number ; i++){
-				if(i!=number-1) {
-					string += " ? AND ";
-				}
-				else{
-					string += " ? ";
-				}
-			}
-			
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(string);
-			
-			String string2 = "";
+
 			int j = 1;
 			for (int i = 0; i < field.length; i++) {
 				field[i].setAccessible(true);
@@ -168,31 +157,31 @@ public class Database {
 					if (field[i].getType().getSimpleName().equals("String")) {
 						if( !((String) value).equals("") ){
 							substring += "'" + (String)value + "'";
-							string2 += substring;
-							preparedStatement.setString(j, substring);
+							string += substring;
+							if(j!=number){
+								string += " AND ";
+							}
 							j++;
 						}
 					} else if (field[i].getType().getSimpleName().equals("int")) {
 						if( (int)value != -1 ){
 							substring += value.toString();
-							string2 += substring;
-							preparedStatement.setString(j, substring);
+							string += substring;
+							if(j!=number){
+								string += " AND ";
+							}
 							j++;
 						}
 					}
 				}
 			}
-
-			System.out.println(number);
 			
 			if( number > 0 ){
-				System.out.println(string);
-				System.out.println(string2);
-				preparedStatement.executeUpdate();
+				statement.executeQuery(string);
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(string);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -226,7 +215,7 @@ public class Database {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Tables already created.");
 		} catch (NoSuchElementException e) {
 			
 		}
@@ -250,7 +239,7 @@ public class Database {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Tables already filled.");
 		}
 	}
 }
