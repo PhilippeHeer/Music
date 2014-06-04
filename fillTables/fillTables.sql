@@ -23,7 +23,7 @@ INSERT INTO is_genre (Artist_id, Genre_id) SELECT *  FROM Artist_genre_csv
 INSERT INTO Recording (Recording_id, Name, Length) SELECT * FROM Recording_csv
 
 /* has_recorded */
-INSERT INTO has_recorded (Artist_id, Recording_id) SELECT DISTINCT ArtistID, TrackID FROM artist_track_csv NATURAL JOIN Track_csv
+INSERT INTO has_recorded (Artist_id, Recording_id) SELECT DISTINCT a.ArtistID, t.RecID FROM artist_track_csv a, Track_csv t WHERE a.TrackID = t.TrackID 
 
 /* Medium */
 INSERT INTO Medium (Medium_id, Format) SELECT ID, Format FROM Medium_csv
