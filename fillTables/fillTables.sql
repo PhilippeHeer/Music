@@ -1,11 +1,11 @@
 /* Type */
 INSERT INTO Type (Type_id, Name) VALUES (0, 'Person')
-INSERT INTO Type (Type_id, Name) VALUES (1, 'Groupe')
+INSERT INTO Type (Type_id, Name) VALUES (1, 'Group')
 
 /* Gender */
 INSERT INTO Gender (Gender_id, Name) VALUES (0, 'Male')
 INSERT INTO Gender (Gender_id, Name) VALUES (1, 'Female')
-INSERT INTO Gender (Gender_id, Name) VALUES (2, 'Ohter')
+INSERT INTO Gender (Gender_id, Name) VALUES (2, 'Other')
 
 /* Genre */
 INSERT INTO Genre (Genre_id, Name, Count) SELECT * FROM Genre_csv
@@ -14,7 +14,7 @@ INSERT INTO Genre (Genre_id, Name, Count) SELECT * FROM Genre_csv
 INSERT INTO Area (Area_id, Name, Type_of_area) SELECT * FROM Area_csv
 
 /* Artist */
-INSERT INTO Artist (Artist_id, Name, Type_id, Gender_id, Area_id) SELECT * FROM Artist_csv
+INSERT INTO Artist (Artist_id, Name, Type_id, Gender_id, Area_id) SELECT * FROM Artist_csv 
 
 /* is_genre */
 INSERT INTO is_genre (Artist_id, Genre_id) SELECT *  FROM Artist_genre_csv

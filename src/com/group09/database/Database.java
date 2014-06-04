@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -123,22 +124,30 @@ public class Database {
 	 */
 	public void createTables() {
 
-		// 1. Simple tables creation (our tables).
+		// 1. Simple tables creation (our tables). Uncomment if tables are not created yet.
 		String query = "";
 		Scanner scanner;
 		try {
 			scanner = new Scanner(new File("createTables/createTables.sql"));
 			while (scanner.hasNext()) {
-				query = scanner.nextLine();
+				String readLine = scanner.nextLine();
+				while (!readLine.equals("")) {
+					query = query + readLine;
+					readLine = scanner.nextLine();
+				}
+				System.out.println("Table created : \n" + query);
 
 				if (!((query.equals("")) || (query.charAt(0) == '/'))) {
 					statement.execute(query);
 				}
+				query = "";
 			}
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (NoSuchElementException e) {
+			
 		}
 
 		// 2. Translate CSV files into new tables using SQLITE DATABASE
@@ -153,6 +162,7 @@ public class Database {
 				query = scanner.nextLine();
 
 				if (!((query.equals("")) || (query.charAt(0) == '/'))) {
+					System.out.println("Executing " + query);
 					statement.execute(query);
 				}
 			}
