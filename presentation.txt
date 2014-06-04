@@ -1,0 +1,19 @@
+Question they'll ask:
+- Questions générales (pas ciblées)
+- Comment on a réparti le travail ?
+- Montrer Insertion / Deletion
+- What were the challenges, what was interesting
+- Interfaces, Choix...
+- What we liked we liked or not...
+
+
+Problems we had:
+- CSV importation (Quotes character..)
+- Tables from CSV importation
+	- Request worked on small tables but not on fat ones -> Couldn't test all queries
+		(typically has_recorded)
+
+
+Problems and Ameliorations:
+- We chose to have a local solution instead of a distant one -> lots of problem of synchronisation between team members (git..). Amelioration : works on distant server
+- Noticed the lack of optimability of our diagram at the end of the project. Amelioration : Improve diagram with some other paths.
