@@ -51,6 +51,7 @@ public class Window extends JFrame implements ActionListener {
 
 	private JButton jButton1;
 	private JButton jButton2;
+	private JButton jButton3;
 	private JButton jButtons[];
 
 	private JComboBox<String> jComboBox;
@@ -65,6 +66,7 @@ public class Window extends JFrame implements ActionListener {
 		this.database = database;
 
 		initializeWindow();
+		updateTable();
 	}
 
 	/**
@@ -115,18 +117,25 @@ public class Window extends JFrame implements ActionListener {
 		jButton1 = new JButton(Strings.SEARCH_TABLE);
 		jButton1.setToolTipText(Strings.SEARCH_TABLE_TOOL_TIP);
 		jButton1.addActionListener(this);
-		jButton1.setPreferredSize(new Dimension(330, 30));
+		jButton1.setPreferredSize(new Dimension(250, 30));
 		jPanel.add(jButton1);
 
 		jButton2 = new JButton(Strings.ADD_ROW + " " + Strings.TABLE_NAMES[0]);
 		jButton2.setToolTipText(Strings.ADD_ROW_TOOLTIP);
 		jButton2.addActionListener(this);
-		jButton2.setPreferredSize(new Dimension(330, 30));
+		jButton2.setPreferredSize(new Dimension(250, 30));
 		jPanel.add(jButton2);
+
+		jButton3 = new JButton(Strings.DELETE_ROW + " "
+				+ Strings.TABLE_NAMES[0]);
+		jButton3.setToolTipText(Strings.DELETE_ROW_TOOLTIP);
+		jButton3.addActionListener(this);
+		jButton3.setPreferredSize(new Dimension(250, 30));
+		jPanel.add(jButton3);
 
 		jComboBox = new JComboBox<String>(Strings.TABLE_NAMES);
 		jComboBox.addActionListener(this);
-		jComboBox.setPreferredSize(new Dimension(330, 30));
+		jComboBox.setPreferredSize(new Dimension(250, 30));
 		jPanel.add(jComboBox);
 
 		jPanel0.add(jPanel);
@@ -210,6 +219,12 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 
+	public void updateTable() {
+		String query = "SELECT * FROM "
+				+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+		updateJTable(database.query(query));
+	}
+
 	/**
 	 * 
 	 */
@@ -223,57 +238,109 @@ public class Window extends JFrame implements ActionListener {
 							this,
 							"Please enter your search query\n(\"SELECT * FROM GENRE\")",
 							null);
-			updateJTable(database.query(name2));
+			if (name2 != null) {
+				updateJTable(database.query(name2));
+			}
 
 		} else if (e.getSource() == jComboBox) {
 			jButton2.setText(Strings.ADD_ROW + " "
 					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()]);
+			String query = "SELECT * FROM "
+					+ Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+			updateJTable(database.query(query));
 		} else if (e.getSource() == jButton2) {
 			Object object = null;
 
 			switch (jComboBox.getSelectedIndex()) {
 			case 0:
-				object = new com.group09.entities.Type(0, "");
+				object = new com.group09.entities.Type(-1, "");
 				break;
 			case 1:
-				object = new Gender(1, "");
+				object = new Gender(-1, "");
 				break;
 			case 2:
-				object = new Genre(2, "", -1);
+				object = new Genre(-1, "", -1);
 				break;
 			case 3:
-				object = new Area(3, "", "");
+				object = new Area(-1, "", "");
 				break;
 			case 4:
-				object = new Artist(4, "", -1, -1, -1);
+				object = new Artist(-1, "", -1, -1, -1);
 				break;
 			case 5:
-				object = new Is_Genre(5, -1);
+				object = new Is_Genre(-1, -1);
 				break;
 			case 6:
-				object = new Recording(6, "", -1);
+				object = new Recording(-1, "", -1);
 				break;
 			case 7:
-				object = new Has_recorded(7, -1);
+				object = new Has_recorded(-1, -1);
 				break;
 			case 8:
-				object = new Medium(8, "");
+				object = new Medium(-1, "");
 				break;
 			case 9:
-				object = new Release(9, "");
+				object = new Release(-1, "");
 				break;
 			case 10:
-				object = new Is_track_on(10, -1, -1);
+				object = new Is_track_on(-1, -1, -1);
 				break;
 			case 11:
-				object = new Is_released(11, -1);
+				object = new Is_released(-1, -1);
 				break;
 
 			default:
 				break;
 			}
 
-			new TableSelect(database, object);
+			new TableSelect(database, object, false, this);
+
+		} else if (e.getSource() == jButton3) {
+			Object object = null;
+
+			switch (jComboBox.getSelectedIndex()) {
+			case 0:
+				object = new com.group09.entities.Type(-1, "");
+				break;
+			case 1:
+				object = new Gender(-1, "");
+				break;
+			case 2:
+				object = new Genre(-1, "", -1);
+				break;
+			case 3:
+				object = new Area(-1, "", "");
+				break;
+			case 4:
+				object = new Artist(-1, "", -1, -1, -1);
+				break;
+			case 5:
+				object = new Is_Genre(-1, -1);
+				break;
+			case 6:
+				object = new Recording(-1, "", -1);
+				break;
+			case 7:
+				object = new Has_recorded(-1, -1);
+				break;
+			case 8:
+				object = new Medium(-1, "");
+				break;
+			case 9:
+				object = new Release(-1, "");
+				break;
+			case 10:
+				object = new Is_track_on(-1, -1, -1);
+				break;
+			case 11:
+				object = new Is_released(-1, -1);
+				break;
+
+			default:
+				break;
+			}
+
+			new TableSelect(database, object, true, this);
 
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
@@ -287,17 +354,19 @@ public class Window extends JFrame implements ActionListener {
 						while (scanner.hasNext()) {
 							query += scanner.nextLine();
 						}
+
+						Timing.startCounter();
+
+						ResultSet resultSet = database.query(query);
+
+						Timing.stopCounter();
+
+						updateJTable(resultSet);
 					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
+						System.out
+								.println("Query " + ++index + " not implemented");
 					}
 
-					Timing.startCounter();
-
-					ResultSet resultSet = database.query(query); 
-					
-					Timing.stopCounter();
-
-					updateJTable(resultSet);
 					break;
 				}
 			}
