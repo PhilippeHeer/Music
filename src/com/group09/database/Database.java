@@ -121,6 +121,87 @@ public class Database {
 
 	/**
 	 * 
+	 * @param object
+	 */
+	public void deleteRow(Object object) {
+		try {
+			String string = "DELETE FROM " + object.getClass().getSimpleName()
+					+ " WHERE";
+			
+			int number = 0;
+
+			Field field[] = object.getClass().getDeclaredFields();
+			for (int i = 0; i < field.length; i++) {
+				field[i].setAccessible(true);
+				Object value = field[i].get(object);
+				if (value != null) {
+					if (field[i].getType().getSimpleName().equals("String")) {
+						if( !((String) value).equals("") ){
+							number++;
+						}
+					} else if (field[i].getType().getSimpleName().equals("int")) {
+						if( (int)value != -1 ){
+							number++;
+						}
+					}
+				}
+			}
+			for (int i=0; i<number ; i++){
+				if(i!=number-1) {
+					string += " ? AND ";
+				}
+				else{
+					string += " ? ";
+				}
+			}
+			
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(string);
+			
+			String string2 = "";
+			int j = 1;
+			for (int i = 0; i < field.length; i++) {
+				field[i].setAccessible(true);
+				Object value = field[i].get(object);
+				if (value != null) {
+					String substring = field[i].getName() + " = ";
+					if (field[i].getType().getSimpleName().equals("String")) {
+						if( !((String) value).equals("") ){
+							substring += "'" + (String)value + "'";
+							string2 += substring;
+							preparedStatement.setString(j, substring);
+							j++;
+						}
+					} else if (field[i].getType().getSimpleName().equals("int")) {
+						if( (int)value != -1 ){
+							substring += value.toString();
+							string2 += substring;
+							preparedStatement.setString(j, substring);
+							j++;
+						}
+					}
+				}
+			}
+
+			System.out.println(number);
+			
+			if( number > 0 ){
+				System.out.println(string);
+				System.out.println(string2);
+				preparedStatement.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
 	 */
 	public void createTables() {
 

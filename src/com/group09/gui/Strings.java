@@ -20,6 +20,15 @@ public abstract class Strings {
 	/**
 	 * 
 	 */
+	public static final String DELETE_ROW = "Delete row to table";
+	
+	/**
+	 * 
+	 */
+	public static final String DELETE_ROW_TOOLTIP = "Delete row to table";
+	/**
+	 * 
+	 */
 	public static final String SEARCH_TABLE = "Search table";
 
 	/**

@@ -26,16 +26,18 @@ public class TableSelect extends JFrame implements ActionListener {
 	private JPanel jPanel0;
 	private DefaultTableModel defaultTableModel;
 	private JButton jButton;
-
+	private boolean is_deleting;
+	
 	/**
 	 * @param database
 	 * @param object
 	 * 
 	 */
-	public TableSelect(Database database, Object object) {
+	public TableSelect(Database database, Object object, boolean is_deleting) {
 		this.database = database;
 		this.object = object;
-
+		this.is_deleting = is_deleting;
+		
 		initializeWindow();
 	}
 
@@ -62,8 +64,14 @@ public class TableSelect extends JFrame implements ActionListener {
 	 * 
 	 */
 	private void initializeJButton() {
-		jButton = new JButton(Strings.ADD_ROW);
-		jButton.setToolTipText(Strings.ADD_ROW_TOOLTIP);
+		if(is_deleting){
+			jButton = new JButton(Strings.DELETE_ROW);
+			jButton.setToolTipText(Strings.DELETE_ROW_TOOLTIP);
+		}
+		else{
+			jButton = new JButton(Strings.ADD_ROW);
+			jButton.setToolTipText(Strings.ADD_ROW_TOOLTIP);
+		}
 		jButton.addActionListener(this);
 		jButton.setPreferredSize(new Dimension(460, 30));
 
@@ -135,7 +143,12 @@ public class TableSelect extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 
-			database.addRow(object);
+			if(is_deleting){
+				database.deleteRow(object);
+			}
+			else{
+				database.addRow(object);
+			}
 		}
 
 		setVisible(false);
