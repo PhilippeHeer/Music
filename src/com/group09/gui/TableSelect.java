@@ -27,16 +27,18 @@ public class TableSelect extends JFrame implements ActionListener {
 	private DefaultTableModel defaultTableModel;
 	private JButton jButton;
 	private boolean is_deleting;
+	private Window window;
 	
 	/**
 	 * @param database
 	 * @param object
 	 * 
 	 */
-	public TableSelect(Database database, Object object, boolean is_deleting) {
+	public TableSelect(Database database, Object object, boolean is_deleting, Window window) {
 		this.database = database;
 		this.object = object;
 		this.is_deleting = is_deleting;
+		this.window = window;
 		
 		initializeWindow();
 	}
@@ -149,6 +151,7 @@ public class TableSelect extends JFrame implements ActionListener {
 			else{
 				database.addRow(object);
 			}
+			window.updateTable();
 		}
 
 		setVisible(false);

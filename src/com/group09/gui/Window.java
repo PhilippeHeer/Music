@@ -66,6 +66,7 @@ public class Window extends JFrame implements ActionListener {
 		this.database = database;
 
 		initializeWindow();
+		updateTable();
 	}
 
 	/**
@@ -217,6 +218,11 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 
+	public void updateTable(){
+		String query = "SELECT * FROM " + Strings.TABLE_NAMES[jComboBox.getSelectedIndex()];
+		updateJTable(database.query(query));
+	}
+	
 	/**
 	 * 
 	 */
@@ -230,7 +236,9 @@ public class Window extends JFrame implements ActionListener {
 							this,
 							"Please enter your search query\n(\"SELECT * FROM GENRE\")",
 							null);
-			updateJTable(database.query(name2));
+			if(name2 != null){
+				updateJTable(database.query(name2));
+			}
 
 		} else if (e.getSource() == jComboBox) {
 			jButton2.setText(Strings.ADD_ROW + " "
@@ -282,7 +290,7 @@ public class Window extends JFrame implements ActionListener {
 				break;
 			}
 
-			new TableSelect(database, object, false);
+			new TableSelect(database, object, false, this);
 
 		} else if (e.getSource() == jButton3) {
 			Object object = null;
@@ -329,7 +337,7 @@ public class Window extends JFrame implements ActionListener {
 				break;
 			}
 
-			new TableSelect(database, object, true);
+			new TableSelect(database, object, true, this);
 
 		} else {
 			for (int index = 0; index < Strings.NAMES.length; index++) {
